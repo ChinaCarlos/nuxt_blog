@@ -16,7 +16,7 @@ module.exports = {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       {
-        type: 'stylesheet',
+        rel: 'stylesheet',
         type: 'text/css',
         href:
           'https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css'
@@ -27,7 +27,7 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#aaa' },
 
   /*
   ** Global CSS
@@ -54,7 +54,10 @@ module.exports = {
     proxy: true
   },
   proxy: {
-    '/sys/*': 'http://localhost:8080'
+    '/sys/': 'http://localhost:8080'
+  },
+  router: {
+    linkActiveClass: 'active-link'
   },
   /*
   ** Build configuration
