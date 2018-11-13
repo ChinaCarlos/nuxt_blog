@@ -67,7 +67,7 @@ async function start() {
     });
   });
   app.use(
-    KoaJwt({ cert }).unless({
+    KoaJwt({ cert, passthrough: true }).unless({
       path: [/^\//, /^\/login/]
     })
   );
