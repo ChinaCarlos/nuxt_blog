@@ -1,11 +1,17 @@
 const Koa = require('koa');
 const consola = require('consola');
+const bodyparser = require('koa-bodyparser');
 const { Nuxt, Builder } = require('nuxt');
 // 集成日志
 // const logUtil = require('../utils/log_util');
 // 自定义api接口
 const city = require('./api/city');
 const user = require('./api/user');
+const login = require('./api/login');
+// token 处理
+const KoaJwt = require('koa-jwt');
+const cert = 'nuxt_blog';
+
 const app = new Koa();
 const host = process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || 3000;
@@ -42,10 +48,33 @@ async function start() {
   //     logUtil.logError(ctx, error, ms);
   //   }
   // });
+  app.use(
+    bodyparser({
+      enableTypes: ['json', 'form', 'text']
+    })
+  );
+  // token 验证token
+  // token 验证失败拦截
+  app.use(function(ctx, next) {
+    return next().catch(error => {
+      if (error.status === 401) {
+        ctx.status = 401;
+        ctx.body = {
+          code: -1,
+          msg: 'Protected resource, use Authorization header to get access\n'
+        };
+      }
+    });
+  });
+  app.use(
+    KoaJwt({ cert }).unless({
+      path: [/^\//, /^\/login/]
+    })
+  );
   // 使用自定义API 接口路由
   app.use(city.routes()).use(city.allowedMethods());
   app.use(user.routes(), user.allowedMethods());
-
+  app.use(login.routes(), login.allowedMethods());
   app.use(ctx => {
     ctx.status = 200; // koa defaults to 404 when it sees that status is unset
 
@@ -61,7 +90,7 @@ async function start() {
 
   app.listen(port, host);
   consola.ready({
-    message: `Server listening on http://${host}:${port}`,
+    message: `大爷您的服务已经启动，具体可以查看 http://${host}:${port}`,
     badge: true
   });
 }
