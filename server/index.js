@@ -15,7 +15,9 @@ const cert = 'nuxt_blog';
 const app = new Koa();
 const host = process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || 3000;
-
+// mongodb
+const mongoose = require('mongoose');
+const dbConfig = require('./dbs/config');
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js');
 config.dev = !(app.env === 'production');
@@ -48,6 +50,15 @@ async function start() {
   //     logUtil.logError(ctx, error, ms);
   //   }
   // });
+
+  // 连接mongodb
+  console.log(dbConfig.dbs);
+  mongoose.connect(
+    dbConfig.dbs,
+    {
+      useNewUrlParser: true
+    }
+  );
   app.use(
     bodyparser({
       enableTypes: ['json', 'form', 'text']
