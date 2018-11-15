@@ -1,17 +1,16 @@
 const crypto = require('crypto');
-function crypotPwd(password, salt) {
-  const saltOriginPwd = password + salt;
-  console.log('原始密码%s', saltOriginPwd);
+
+/**
+ * @params password {String} 原始密码
+ * @params salt {String} 加盐
+ * @return {String} 加密密码
+ */
+function cryptoPassword(password, salt) {
+  const newPwdStr = password.toString() + salt.toString();
   const md5 = crypto.createHash('md5');
-  const md5s = crypto.createHash('md5');
-  let orignPassword = md5s.update(password).digest('hex');
-  let newPwd = md5.update(saltOriginPwd).digest('hex');
-  console.log('原始md5%s', orignPassword);
-  console.log('加盐密码%s', newPwd);
+  return md5.update(newPwdStr).digest('hex');
 }
-// crypotPwd('133232', 'uooooxx');
-const timeStamp = new Date().getTime().toString();
-const md5 = crypto.createHash('md5');
-const pwd = md5.update(timeStamp).digest('hex'); // useid
-crypotPwd('1212122', pwd);
-console.log(pwd);
+
+module.exports = {
+  cryptoPassword
+};

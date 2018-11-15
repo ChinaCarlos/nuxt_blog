@@ -52,13 +52,13 @@ async function start() {
   // });
 
   // 连接mongodb
-  console.log(dbConfig.dbs);
   mongoose.connect(
     dbConfig.dbs,
     {
       useNewUrlParser: true
     }
   );
+  // 解析json
   app.use(
     bodyparser({
       enableTypes: ['json', 'form', 'text']

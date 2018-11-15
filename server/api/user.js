@@ -4,6 +4,7 @@ const nodeMailer = require('nodemailer');
 const User = require('../dbs/models/user');
 const axios = require('axios');
 const Passport = require('../utils/passport');
+const { cryptoPassword } = require('../utils/crypto');
 const router = new Router({
   prefix: '/api/user'
 });
@@ -113,6 +114,32 @@ router.post('/verify', async (ctx, next) => {
       msg: '验证请求过于频繁！有病啊！'
     };
     return false;
+  }
+});
+// 模拟登陆
+router.post('/register', async (ctx, next) => {
+  // 获取提交的信息
+  const { name, password, email } = ctx.request.body;
+  const cryptoPwd = cryptoPassword(password, email);
+  const user = new User({
+    name,
+    password: cryptoPwd,
+    email
+  });
+  try {
+    await user.save();
+    const result = await User.findOne({ name });
+    ctx.body = {
+      id: result._id,
+      name: result.name,
+      email: result.email
+    };
+  } catch (error) {
+    console.log('save user error!');
+    ctx.body = {
+      code: 0,
+      msg: 'nofound user info'
+    };
   }
 });
 module.exports = router;
