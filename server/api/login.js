@@ -1,26 +1,41 @@
 const Router = require('koa-router');
-const jwt = require('jsonwebtoken');
-const KoaJwt = require('koa-jwt');
-const cert = 'nuxt_blog';
-
+const User = require('../dbs/models/user');
+const { cryptoPassword, getToken } = require('../utils/certUtil');
+const { dbFindOne, insertData } = require('../utils/dbUtil');
 const router = new Router({
-  prefix: '/api/login'
+  prefix: '/api/users'
 });
-
-router.post('/', async (ctx, next) => {
-  const payload = ctx.request.body;
-  if (!payload.username) {
+router.post('/sin', async (ctx, next) => {
+  ctx.body = {
+    name: 'test'
+  };
+});
+// 用户登录
+router.post('/signin', async (ctx, next) => {
+  const { email, password } = ctx.request.body;
+  // 判断传过来的信息是否合法
+  if (!email || !password) {
     ctx.body = {
       code: -1,
-      msg: '登录出错'
+      msg: '登录信息不完整！'
+    };
+  } else {
+    // 判读数据库是否存在该用户
+    const result = await dbFindOne(User, { email });
+    ctx.body = {
+      result
     };
   }
-  const token = jwt.sign(payload, cert, {
-    expiresIn: '1h'
-  });
+});
+// 用户注册
+router.post('/signup', async (ctx, next) => {
+  const { name, email, password, code = '' } = ctx.request.body;
+  console.log(name, email, password);
+  const isInsert = await insertData(User, { name, email, password });
   ctx.body = {
     code: 0,
-    token
+    msg: '插入成功！',
+    isInsert
   };
 });
 

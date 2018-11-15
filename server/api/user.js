@@ -4,7 +4,7 @@ const nodeMailer = require('nodemailer');
 const User = require('../dbs/models/user');
 const axios = require('axios');
 const Passport = require('../utils/passport');
-const { cryptoPassword } = require('../utils/crypto');
+const { cryptoPassword } = require('../utils/certUtil');
 const router = new Router({
   prefix: '/api/user'
 });
@@ -130,6 +130,7 @@ router.post('/register', async (ctx, next) => {
     await user.save();
     const result = await User.findOne({ name });
     ctx.body = {
+      code: 0,
       id: result._id,
       name: result.name,
       email: result.email
