@@ -8,7 +8,7 @@
 # 安装依赖
 $ yarn install
 
-# serve with hot reload at localhost:3000
+# 启动开发环境
 $ yarn run dev
 
 # 部署生产
