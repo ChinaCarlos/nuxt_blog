@@ -31,11 +31,11 @@ router.post('/signin', async (ctx, next) => {
 router.post('/signup', async (ctx, next) => {
   const { name, email, password, code = '' } = ctx.request.body;
   console.log(name, email, password);
-  const isInsert = await insertData(User, { name, email, password });
+  const insertDatas = await insertData(User, { name, email, password });
   ctx.body = {
     code: 0,
     msg: '插入成功！',
-    isInsert
+    insertDatas
   };
 });
 

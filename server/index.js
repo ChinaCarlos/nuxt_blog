@@ -2,6 +2,8 @@ const Koa = require('koa');
 const consola = require('consola');
 const bodyparser = require('koa-bodyparser');
 const { Nuxt, Builder } = require('nuxt');
+// 输出有意思的字符串
+const Alphabet = require('alphabetjs');
 // 集成日志
 // const logUtil = require('../utils/log_util');
 // 自定义api接口
@@ -102,6 +104,12 @@ async function start() {
   app.listen(port, host);
   consola.ready({
     message: `大爷您的服务已经启动，具体可以查看 http://${host}:${port}`,
+    badge: true
+  });
+  // 输出自定义风格logo风格字符串
+  const str = Alphabet('LAVECTOR', 'planar');
+  consola.success({
+    message: str,
     badge: true
   });
 }

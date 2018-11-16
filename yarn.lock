@@ -954,6 +954,11 @@ ajv@^6.0.1, ajv@^6.1.0, ajv@^6.5.5:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
+alphabetjs@^0.1.4:
+  version "0.1.4"
+  resolved "http://registry.npm.taobao.org/alphabetjs/download/alphabetjs-0.1.4.tgz#685e06b63f17220ce6610fae2d5ee61b9e592a5b"
+  integrity sha1-aF4Gtj8XIgzmYQ+uLV7mG55ZKls=
+
 alphanum-sort@^1.0.0:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
