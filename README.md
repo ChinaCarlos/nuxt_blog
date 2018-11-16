@@ -1,22 +1,22 @@
-# blog
+# 个人CMS（博客系统，官网，社区）
 
-> My awe-inspiring Nuxt.js project
+> Nuxt_Blog
 
-## Build Setup
+## 构建步骤
 
 ``` bash
-# install dependencies
+# 安装依赖
 $ yarn install
 
 # serve with hot reload at localhost:3000
 $ yarn run dev
 
-# build for production and launch server
+# 部署生产
 $ yarn run build
 $ yarn start
 
-# generate static project
+# 生成静态网站
 $ yarn run generate
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+参考文档 [Nuxt.js docs](https://nuxtjs.org).
