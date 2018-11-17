@@ -12,6 +12,22 @@ const UserSchema = new Schema({
   email: {
     type: String,
     require: true
+  },
+  avatar: {
+    type: String,
+    require: true,
+    default: ''
+  },
+  role: {
+    type: Number,
+    require: true
+  },
+  createdTime: {
+    type: Date,
+    require: true
+  },
+  lastLogin: {
+    type: Date
   }
 });
 module.exports = mongoose.model('User', UserSchema);

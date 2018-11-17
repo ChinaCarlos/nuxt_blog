@@ -10,16 +10,13 @@ const Alphabet = require('alphabetjs');
 const city = require('./api/city');
 const user = require('./api/user');
 const login = require('./api/login');
-// token 处理
-const KoaJwt = require('koa-jwt');
-const cert = 'nuxt_blog';
 
 const app = new Koa();
 const host = process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || 3000;
 // mongodb
 const mongoose = require('mongoose');
-const dbConfig = require('./dbs/config');
+const configs = require('./config');
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js');
 config.dev = !(app.env === 'production');
@@ -55,7 +52,7 @@ async function start() {
 
   // 连接mongodb
   mongoose.connect(
-    dbConfig.dbs,
+    configs.dbs,
     {
       useNewUrlParser: true
     }
@@ -79,11 +76,6 @@ async function start() {
       }
     });
   });
-  app.use(
-    KoaJwt({ cert, passthrough: true }).unless({
-      path: [/^\//, /^\/login/]
-    })
-  );
   // 使用自定义API 接口路由
   app.use(city.routes()).use(city.allowedMethods());
   app.use(user.routes(), user.allowedMethods());
@@ -107,11 +99,8 @@ async function start() {
     badge: true
   });
   // 输出自定义风格logo风格字符串
-  const str = Alphabet('LAVECTOR', 'planar');
-  consola.success({
-    message: str,
-    badge: true
-  });
+  const str = Alphabet('CMS', 'planar');
+  console.log(str);
 }
 
 start();
