@@ -14,7 +14,6 @@
             <el-input v-model="ruleForm.password" type="password">
               <i slot="suffix" class="el-input__icon el-icon-view"></i>
             </el-input>
-
           </el-form-item>
           <el-form-item>
             <el-button type="primary" round :loading="isLogin" @click="login">登录</el-button>

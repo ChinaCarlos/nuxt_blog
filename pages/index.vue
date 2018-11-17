@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    index page
+    welcome to join us !
   </div>
 </template>
 
@@ -25,5 +25,6 @@ export default {
   background-size: 100% 100%;
   background-attachment: fixed;
   background-repeat: no-repeat;
+  color: #fff;
 }
 </style>

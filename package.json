@@ -27,6 +27,7 @@
     "mongoose": "^5.3.12",
     "node-sass": "^4.10.0",
     "nodemailer": "^4.6.8",
+    "nodemailer-smtp-transport": "^2.7.4",
     "nuxt": "^2.0.0",
     "passport-local": "^1.0.0",
     "sass-loader": "^7.1.0"
