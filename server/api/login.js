@@ -33,6 +33,7 @@ router.post('/signin', async (ctx, next) => {
         // 登录成功,生成token
         ctx.body = {
           code: 0,
+          msg: '登录成功！',
           token: getToken(email)
         };
       } else {
