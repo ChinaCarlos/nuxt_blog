@@ -1,5 +1,7 @@
 const Koa = require('koa');
 const consola = require('consola');
+const session = require('koa-generic-session');
+const Redis = require('koa-redis');
 const bodyparser = require('koa-bodyparser');
 const { Nuxt, Builder } = require('nuxt');
 // 输出有意思的字符串
@@ -20,6 +22,8 @@ const configs = require('./config');
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js');
 config.dev = !(app.env === 'production');
+
+app.keys = ['keys', 'nuxt_blog'];
 
 async function start() {
   // Instantiate nuxt.js
@@ -56,6 +60,14 @@ async function start() {
     {
       useNewUrlParser: true
     }
+  );
+  // redis session
+  app.use(
+    session({
+      key: 'kk',
+      prefix: 'kiss',
+      store: new Redis()
+    })
   );
   // 解析json
   app.use(

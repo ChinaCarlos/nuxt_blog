@@ -132,7 +132,8 @@ export default {
       let data = {
         name: this.signUpForm.name,
         password: this.signUpForm.password,
-        email: this.signUpForm.email
+        email: this.signUpForm.email,
+        code: this.signUpForm.code
       }
       const res = await this.$axios.post(USER_SIGN_UP, data);
       if (res.data.code === 0) {
