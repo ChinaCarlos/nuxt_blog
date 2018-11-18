@@ -45,6 +45,8 @@ import {
 } from '../utils/validate_util'
 
 export default {
+  name: 'signUp',
+  computed: {},
   data() {
     return {
       signUpForm: {
@@ -118,6 +120,13 @@ export default {
   methods: {
     // 用户注册
     async login() {
+      if (!this.canSubmit()) {
+        this.$message({
+          type: 'error',
+          message: '填写信息不合法！'
+        })
+        return false
+      }
       let data = {
         name: this.signUpForm.name,
         password: this.signUpForm.password,
@@ -183,6 +192,14 @@ export default {
       } else {
         callback(new Error('两次输入的密码不一致！'))
       }
+    },
+    // 检查是否可以提交表单
+    canSubmit: function () {
+      this.$nextTick(() => {
+        this.$refs['signUpForm'].validate(validate => {
+          return validate
+        })
+      })
     }
   },
   async mounted() {
