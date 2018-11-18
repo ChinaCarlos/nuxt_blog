@@ -27,9 +27,26 @@ router.post('/signin', async (ctx, next) => {
   } else {
     // 判读数据库是否存在该用户
     const result = await dbFindOne(User, { email });
-    ctx.body = {
-      result
-    };
+    if (result.name && result) {
+      const cryptoPwd = cryptoPassword(password, email);
+      if (result.password === cryptoPwd) {
+        // 登录成功,生成token
+        ctx.body = {
+          code: 0,
+          token: getToken(email)
+        };
+      } else {
+        ctx.body = {
+          code: -1,
+          msg: '邮箱或密码错误！'
+        };
+      }
+    } else {
+      ctx.body = {
+        code: -1,
+        msg: '该用户不存在！'
+      };
+    }
   }
 });
 // 用户注册
