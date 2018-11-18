@@ -17,7 +17,7 @@
           <el-form-item prop="code" label="验证码">
             <el-input v-model="signUpForm.code" type="text">
               <span slot="suffix" class="primary-text" v-if="!isSend" @click="sendCode">发送验证码</span>
-              <span slot="suffix" class="gary-text" v-else>重新发送{{seconds}} s</span>
+              <span slot="suffix" class="gary-text" v-else>重新发送{{seconds}}s</span>
             </el-input>
           </el-form-item>
           <el-form-item prop="password" label="密码">
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import test from '../components/test'
+import { USER_SIGN_UP, USER_SEND_VERIFY_CODE } from '../constant/api'
 import {
   isEmail
 } from '../utils/validate_util'
@@ -134,7 +134,7 @@ export default {
         password: this.signUpForm.password,
         email: this.signUpForm.email
       }
-      const res = await this.$axios.post('/api/users/signUp', data);
+      const res = await this.$axios.post(USER_SIGN_UP, data);
       if (res.data.code === 0) {
         this.$message({
           type: 'success',
@@ -149,7 +149,6 @@ export default {
     },
     // 发送邮箱验证码
     async sendCode() {
-
       const email = this.signUpForm.email;
       if (!isEmail(email)) {
         this.$message({
@@ -159,7 +158,7 @@ export default {
         return false
       } else {
         this.isSend = true
-        const res = await this.$axios.post('/api/users/sendCode', {
+        const res = await this.$axios.post(USER_SEND_VERIFY_CODE, {
           email
         })
         if (res.data.code === 0) {
@@ -171,7 +170,7 @@ export default {
             this.seconds = this.seconds - 1
             if (this.seconds === 0) {
               this.isSend = false
-              this.seconds = 60
+              this.seconds = 120
               clearInterval(timer)
             }
           }, 1000)
@@ -198,7 +197,6 @@ export default {
     // 检查是否可以提交表单
     canSubmit: function () {
       this.$refs['signUpForm'].validate(validate => {
-        console.log(this, validate)
         this.isCanSubmit = validate
       })
     }
