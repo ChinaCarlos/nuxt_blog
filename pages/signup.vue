@@ -114,13 +114,15 @@ export default {
         ]
       },
       isSend: false,
-      seconds: 60
+      seconds: 120,
+      isCanSubmit: false
     }
   },
   methods: {
     // 用户注册
     async login() {
-      if (!this.canSubmit()) {
+      this.canSubmit()
+      if (!this.isCanSubmit) {
         this.$message({
           type: 'error',
           message: '填写信息不合法！'
@@ -195,10 +197,9 @@ export default {
     },
     // 检查是否可以提交表单
     canSubmit: function () {
-      this.$nextTick(() => {
-        this.$refs['signUpForm'].validate(validate => {
-          return validate
-        })
+      this.$refs['signUpForm'].validate(validate => {
+        console.log(this, validate)
+        this.isCanSubmit = validate
       })
     }
   },
