@@ -130,15 +130,15 @@ export default {
     },
     playSvg() {
       let Vivus = this.$Vivus
-      const test = new Vivus('mysvg', {
+      const vivus = new Vivus('mysvg', {
         file: 'images/tiger.svg',
         duration: 1000,
         type: 'oneByOne',
         animTimingFunction: Vivus.EASE
       })
-      test.play()
+      vivus.play()
       setTimeout(() => {
-        test.play(2)
+        vivus.play(2)
       }, 20)
     }
   },
