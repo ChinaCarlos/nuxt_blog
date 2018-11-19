@@ -31,7 +31,8 @@
     "nodemailer-smtp-transport": "^2.7.4",
     "nuxt": "^2.0.0",
     "passport-local": "^1.0.0",
-    "sass-loader": "^7.1.0"
+    "sass-loader": "^7.1.0",
+    "vivus": "^0.4.4"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"

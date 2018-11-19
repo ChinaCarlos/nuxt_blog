@@ -8009,6 +8009,11 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
+vivus@^0.4.4:
+  version "0.4.4"
+  resolved "http://registry.npm.taobao.org/vivus/download/vivus-0.4.4.tgz#34363eb833d5f6fe0b63a92cfccff14ad099ba44"
+  integrity sha1-NDY+uDPV9v4LY6ks/M/xStCZukQ=
+
 vm-browserify@0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-0.0.4.tgz#5d7ea45bbef9e4a6ff65f95438e0a87c357d5a73"
