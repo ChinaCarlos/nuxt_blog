@@ -40,7 +40,8 @@ module.exports = {
   plugins: [
     '@/plugins/element-ui',
     { src: '@/plugins/axios', ssr: false },
-    { src: '@/plugins/vivus', ssr: false }
+    { src: '@/plugins/vivus', ssr: false },
+    { src: '@/plugins/vue-lazyload', srr: false }
   ],
 
   /*

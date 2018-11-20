@@ -3,7 +3,7 @@
     <el-row class="box">
       <el-card class="box-card">
         <div slot="header">
-          <span class="title"><i class="fa fa-pagelines"></i>  用户注册</span>
+          <span class="title"><i class="fa fa-slideshare"></i>  用户注册</span>
         </div>
         <el-form :model="signUpForm" ref="signUpForm" :rules="rules" label-width="80px" status-icon>
           <el-form-item prop="name" label="昵称" inline-message>
@@ -30,7 +30,7 @@
             </el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" round @click="login">注册</el-button>
+            <el-button type="primary" round @click="signUp">注册</el-button>
           </el-form-item>
         </el-form>
       </el-card>
@@ -120,7 +120,7 @@ export default {
   },
   methods: {
     // 用户注册
-    async login() {
+    async signUp() {
       this.canSubmit()
       if (!this.isCanSubmit) {
         this.$message({

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <el-carousel :interval="8000" indicator-position="none" arrow="never" class="carouselBox">
-      <el-carousel-item v-for="item in imgs" :key="item.src">
+      <el-carousel-item v-for="(item,index) in imgs" :key="index">
         <img :src="item.src" :alt="item.alt">
       </el-carousel-item>
     </el-carousel>
@@ -12,20 +12,20 @@
           <span class="txt"><i class="fa fa-slideshare" aria-hidden="true"></i>&nbsp;用户登录</span>
           <span class="line"></span>
         </div>
-        <div class="loginForm">
+        <div class="loginForm" @keydown.enter="signIn">
           <el-input v-model="email" type="text" placeholder="请输入您的邮箱">
             <i slot="prefix" class="el-input__icon fa fa-envelope-o"></i>
           </el-input>
-          <el-input v-model="password" type="password" placeholder="请输入您的密码">
+          <el-input v-model="password" :type="isShow ? 'text':'password'" ref="password" placeholder="请输入您的密码">
             <i slot="prefix" class="el-input__icon fa fa-lock"></i>
-            <i slot="suffix" class="el-input__icon fa fa-eye"  v-if="!isShow"></i>
-            <i slot="suffix" class="el-input__icon fa fa-slash"  v-else></i>
+            <i slot="suffix" class="el-input__icon fa fa-eye"  v-if="!isShow" @click="toggleShow"></i>
+            <i slot="suffix" class="el-input__icon fa fa-eye-slash"  v-else @click="toggleShow"></i>
           </el-input>
           <el-input v-model="code" type="text" placeholder="请输入您的验证码">
             <!-- 应该是后台传过来，此处做法不对！ 学习使用，切勿模仿！-->
             <canvas id="canvas" width="90" height="38" slot="append" @click="drawVerifyCode"></canvas>
           </el-input>
-          <el-button type="primary" class="submitBtn">登录</el-button>
+          <el-button type="primary" class="submitBtn" @click="signIn">登录</el-button>
         </div>
       </div>
       <div class="logoContainer">
@@ -40,6 +40,9 @@
 </template>
 
 <script>
+import {
+  USER_SIGN_IN
+} from '../constant/api'
 export default {
   name: 'signIn',
   data() {
@@ -78,25 +81,26 @@ export default {
         //   alt: 'earth'
         // }
         {
-            src: 'http://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/54fbb2fb43166d22adca728b422309f79052d274.jpg',
-            alt: 'earth'
+          src: 'http://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/54fbb2fb43166d22adca728b422309f79052d274.jpg',
+          alt: 'earth'
         },
         {
-            src: 'http://img.zcool.cn/community/0175d057bd38970000012e7e8ad0d9.png',
-            alt: 'star'
+          src: 'http://img.zcool.cn/community/0175d057bd38970000012e7e8ad0d9.png',
+          alt: 'star'
         },
         {
-            src: 'http://img.zcool.cn/community/0175d057bd38970000012e7e8ad0d9.png',
-            alt: 'eartch'
+          src: 'http://img.zcool.cn/community/0175d057bd38970000012e7e8ad0d9.png',
+          alt: 'eartch'
         },
         {
-            src: 'http://pic1.win4000.com/wallpaper/5/5995433de55da.jpg?down',
-            alt: 'mountin'
+          src: 'http://pic1.win4000.com/wallpaper/5/5995433de55da.jpg?down',
+          alt: 'mountin'
         }
       ],
       email: '',
       password: '',
       code: '',
+      VerifyCode: '',
       isShow: false
     }
   },
@@ -122,8 +126,10 @@ export default {
       ctx.fillRect(0, 0, width, height);
       /**绘制文字**/
       let str = 'ABCEFGHJKLMNPQRSTWXY123456789';
+      let verfiyStr = ''
       for (let i = 0; i < 4; i++) {
         let txt = str[this.randomNum(0, str.length)];
+        verfiyStr += txt
         ctx.fillStyle = this.randomColor(50, 160); //随机生成字体颜色
         ctx.font = this.randomNum(18, 30) + 'px SimHei'; //随机生成字体大小
         let x = 10 + i * 25;
@@ -137,6 +143,7 @@ export default {
         ctx.rotate(-deg * Math.PI / 180);
         ctx.translate(-x, -y);
       }
+      this.VerifyCode = verfiyStr
       /**绘制干扰线**/
       for (let i = 0; i < 3; i++) {
         ctx.strokeStyle = this.randomColor(40, 180);
@@ -165,6 +172,42 @@ export default {
       setTimeout(() => {
         vivus.play(2)
       }, 20)
+    },
+    toggleShow() {
+      this.isShow = !this.isShow
+    },
+    async signIn() {
+      if (!this.code || !this.email || !this.password) {
+        this.$message({
+          type: 'error',
+          message: '必填项不能为空！'
+        })
+        return false
+      }
+      if (this.code != this.VerifyCode) {
+        this.$message({
+          type: 'error',
+          message: '验证码不一致！'
+        })
+        return false
+      }
+
+      const res = await this.$axios.post(USER_SIGN_IN, {
+        email:this.email,
+        password:this.password
+      })
+      if (res.data.code === 0) {
+        this.$message({
+          type: 'success',
+          message: '登录成功！'
+        })
+        // 跳转路由
+      } else {
+        this.$message({
+          type: 'error',
+          message: res.msg || '登录失败,密码或邮箱不正确！'
+        })
+      }
     }
   },
   mounted() {
@@ -240,6 +283,7 @@ export default {
     }
   }
 }
+
 .power {
   position: absolute;
   bottom: 0;
@@ -259,6 +303,7 @@ export default {
     color: #3a8ee6;
   }
 }
+
 .carouselBox {
   width: 100%;
   height: 100%;
@@ -306,6 +351,7 @@ export default {
 .el-carousel__item:nth-child(2n + 1) {
   background-color: #d3dce6;
 }
+
 .logoContainer {
   position: absolute;
   top: 10%;
