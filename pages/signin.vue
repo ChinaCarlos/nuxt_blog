@@ -26,7 +26,7 @@
             <canvas id="canvas" width="90" height="38" slot="append" @click="drawVerifyCode"></canvas>
           </el-input>
           <el-button type="primary" class="submitBtn" @click="signIn">登录</el-button>
-          <nuxt-link to="/signup" class="register">还没有账号?去注册</nuxt-link>
+          <nuxt-link to="/signup" class="register">没有账号?去注册</nuxt-link>
         </div>
       </div>
       <div class="logoContainer">
