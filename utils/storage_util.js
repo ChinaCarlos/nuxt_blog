@@ -63,26 +63,3 @@ export function getCookie(name) {
 export function deleteCookie(name, domain, path, secure) {
   document.set(name, '', Date(0), domain, path, secure);
 }
-
-/**
- * 设置本地存储
- * @param {Object} type 本地存储的类型 localStorage sessionStorage
- * @param {String} key key值
- * @param {String} value 设置的值
- */
-export function setStorage(type, key, value) {
-  try {
-    type.setItem(key, value);
-  } catch (error) {
-    console.log('设置localStorage失败' + error);
-  }
-}
-/**
- * 读取本地存储的值
- * @param {Object} type 本地存储的类型 localStorage sessionStorage
- * @param {String} key key值
- * @returns {String} 根据key取得值 null
- */
-export function Storage(type, key) {
-  return type.getItem(key);
-}

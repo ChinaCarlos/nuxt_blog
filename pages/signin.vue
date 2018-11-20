@@ -43,6 +43,9 @@
 import {
   USER_SIGN_IN
 } from '../constant/api'
+import {
+  isEmail
+} from '../utils/validate_util'
 export default {
   name: 'signIn',
   data() {
@@ -184,6 +187,13 @@ export default {
         })
         return false
       }
+      if (!isEmail(this.email)) {
+        this.$message({
+          type: 'error',
+          message: '邮箱地址不合法！'
+        })
+        return false;
+      }
       if (this.code != this.VerifyCode) {
         this.$message({
           type: 'error',
@@ -193,14 +203,16 @@ export default {
       }
 
       const res = await this.$axios.post(USER_SIGN_IN, {
-        email:this.email,
-        password:this.password
+        email: this.email,
+        password: this.password
       })
       if (res.data.code === 0) {
         this.$message({
           type: 'success',
           message: '登录成功！'
         })
+        // 保存token到storage 中
+        localStorage.setItem('nuxt_token', res.data.token)
         // 跳转路由
       } else {
         this.$message({

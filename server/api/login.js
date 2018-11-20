@@ -16,8 +16,8 @@ const router = new Router({
 const Store = new Redis().client;
 
 // 用户登录
-router.post('/signin', async (ctx, next) => {
-  const { email, password } = ctx.request.body;
+router.post('/signIn', async (ctx, next) => {
+  const { email = '', password = '' } = ctx.request.body;
   // 判断传过来的信息是否合法
   if (!email || !password) {
     ctx.body = {
@@ -26,8 +26,9 @@ router.post('/signin', async (ctx, next) => {
     };
   } else {
     // 判读数据库是否存在该用户
+
     const result = await dbFindOne(User, { email });
-    if (result.name && result) {
+    if (result) {
       const cryptoPwd = cryptoPassword(password, email);
       if (result.password === cryptoPwd) {
         // 登录成功,生成token
