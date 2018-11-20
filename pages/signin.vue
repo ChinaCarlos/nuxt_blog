@@ -26,6 +26,7 @@
             <canvas id="canvas" width="90" height="38" slot="append" @click="drawVerifyCode"></canvas>
           </el-input>
           <el-button type="primary" class="submitBtn" @click="signIn">登录</el-button>
+          <nuxt-link to="/signup" class="register">还没有账号?去注册</nuxt-link>
         </div>
       </div>
       <div class="logoContainer">
@@ -268,7 +269,18 @@ export default {
       height: 200px;
       margin-top: 0px;
       margin-left: 30px;
-
+      .register {
+        text-decoration: none;
+        font-size: 13px;
+        text-align: right;
+        display: inline-block;
+        width: 100%;
+        padding-top: 10px;
+        color: #565353;
+        &:hover {
+          color: #409eff;
+        }
+      }
       .el-input-group__append {
         width: 90px;
         height: 100%;
