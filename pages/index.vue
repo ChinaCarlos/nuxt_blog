@@ -184,14 +184,13 @@ export default {
         })
         return false
       }
-      if (this.code != this.VerifyCode) {
+      if (this.code.toLowerCase() != this.VerifyCode.toLowerCase()) {
         this.$message({
           type: 'error',
           message: '验证码不一致！'
         })
         return false
       }
-
       const res = await this.$axios.post(USER_SIGN_IN, {
         email: this.email,
         password: this.password
