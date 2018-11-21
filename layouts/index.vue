@@ -3,9 +3,12 @@
     <el-header class="app-header-box">
       <app-header />
     </el-header>
-    <el-main class="app-main-box">
-      <nuxt />
-    </el-main>
+    <el-container>
+      <el-aside width="200px">Aside</el-aside>
+      <el-main>
+        <nuxt></nuxt>
+      </el-main>
+    </el-container>
   </el-container>
 </template>
 
@@ -43,6 +46,7 @@ html {
   min-height: 100%;
   padding-top: 60px;
   overflow-y: auto;
+
   .app-header-box {
     background: rgb(245, 244, 244);
     width: 100%;
@@ -54,6 +58,7 @@ html {
     padding: 0;
     box-shadow: 0px 0px 5px #23222299;
   }
+
   .app-main-box {
     width: 100%;
     height: auto;

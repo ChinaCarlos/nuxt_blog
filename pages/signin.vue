@@ -32,6 +32,17 @@
       <div class="logoContainer">
         <div id="mysvg" ref="mysvg" />
       </div>
+      <div class="space">
+        <div class="stars">
+          <div class="star"></div>
+          <div class="star pink"></div>
+          <div class="star blue"></div>
+          <div class="star yellow"></div>
+          <div class="star red"></div>
+          <div class="star cyan"></div>
+          <div class="star purse"></div>
+        </div>
+      </div>
     </div>
     <div class="power">
       <p class="text">Copyright ©2017-2018 [ Nuxt_Blog ] Powered By <a href="https://github.com/maliaoMJ/nuxt_blog">maliaoMJ</a> Version 1.0.0</p>
@@ -84,22 +95,22 @@ export default {
         //   src: 'http://pic1.win4000.com/wallpaper/d/58747f2edb1ec.jpg?down',
         //   alt: 'earth'
         // }
-        {
-          src: 'http://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/54fbb2fb43166d22adca728b422309f79052d274.jpg',
-          alt: 'earth'
-        },
+        // {
+        //   src: 'http://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/54fbb2fb43166d22adca728b422309f79052d274.jpg',
+        //   alt: 'earth'
+        // },
         {
           src: 'http://img.zcool.cn/community/0175d057bd38970000012e7e8ad0d9.png',
           alt: 'star'
         },
-        {
-          src: 'http://img.zcool.cn/community/0175d057bd38970000012e7e8ad0d9.png',
-          alt: 'eartch'
-        },
-        {
-          src: 'http://pic1.win4000.com/wallpaper/5/5995433de55da.jpg?down',
-          alt: 'mountin'
-        }
+        // {
+        //   src: 'http://img.zcool.cn/community/0175d057bd38970000012e7e8ad0d9.png',
+        //   alt: 'eartch'
+        // },
+        // {
+        //   src: 'http://pic1.win4000.com/wallpaper/5/5995433de55da.jpg?down',
+        //   alt: 'mountin'
+        // }
       ],
       email: '',
       password: '',
@@ -235,6 +246,7 @@ export default {
   width: 100%;
   height: 100%;
   position: absolute;
+  min-width: 1024px;
   top: 0;
   bottom: 0;
   left: 0;
@@ -269,6 +281,7 @@ export default {
       height: 200px;
       margin-top: 0px;
       margin-left: 30px;
+
       .register {
         text-decoration: none;
         font-size: 13px;
@@ -277,10 +290,12 @@ export default {
         width: 100%;
         padding-top: 10px;
         color: #565353;
+
         &:hover {
           color: #409eff;
         }
       }
+
       .el-input-group__append {
         width: 90px;
         height: 100%;
@@ -385,5 +400,153 @@ export default {
   height: 100%;
   transform: rotate(-6deg);
   z-index: -1;
+}
+
+.space {
+  width: 100%;
+  height: 100%;
+}
+
+.star {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #fff;
+  top: 100px;
+  right: 400px;
+  position: relative;
+  transform-origin: 100% 0;
+  animation: star-ani 6s infinite ease-out;
+  box-shadow: 0 0 5px 5px rgba(255, 255, 255, 0.3);
+  opacity: 0;
+  z-index: 2;
+}
+
+.star:after {
+  content: '';
+  display: block;
+  top: 0px;
+  left: 4px;
+  border: 0px solid #fff;
+  border-width: 0px 90px 2px 90px;
+  border-color: transparent transparent transparent rgba(255, 255, 255, 0.3);
+  transform: rotate(-45deg) translate3d(1px, 3px, 0);
+  box-shadow: 0 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform-origin: 0% 100%;
+  animation: shooting-ani 3s infinite ease-out;
+}
+
+.pink {
+  top: 0px;
+  left: 70%;
+  background: #ff5a99;
+  animation-delay: 5s;
+  -webkit-animation-delay: 5s;
+  -moz-animation-delay: 5s;
+  animation: star-ani 10s infinite ease;
+}
+
+.pink:after {
+  border-color: transparent transparent transparent #ff5a99;
+  animation-delay: 5s;
+  -webkit-animation-delay: 5s;
+  -moz-animation-delay: 5s;
+}
+
+.blue {
+  top: 0px;
+  left: 78%;
+  background: cyan;
+  animation-delay: 7s;
+  -webkit-animation-delay: 7s;
+  -moz-animation-delay: 7s;
+  animation: star-ani 3s infinite ease-in-out;
+}
+
+.blue:after {
+  -webkit-animation-delay: 7s;
+  -moz-animation-delay: 7s;
+  animation-delay: 7s;
+}
+
+.yellow {
+  top: 5px;
+  left: 84%;
+  background: #ffcd5c;
+  animation-delay: 5.8s;
+  animation: star-ani 4.7s infinite ease-in;
+}
+
+.yellow:after {
+  border-color: transparent transparent transparent #ffcd5c;
+  animation-delay: 5.8s;
+}
+.cyan {
+  top: 10px;
+  left: 70%;
+  background: hsl(0, 100%, 68%);
+  animation-delay: 8s;
+  -webkit-animation-delay: 8s;
+  -moz-animation-delay: 8s;
+  animation: star-ani 5.2s infinite ease-out;
+}
+.cyan:after {
+  border-color: transparent transparent transparent hsl(0, 100%, 68%);
+  animation-delay: 8s;
+  -webkit-animation-delay: 8s;
+  -moz-animation-delay: 8s;
+}
+.red {
+  top: 0px;
+  left: 52%;
+  background: hsl(4, 99%, 49%);
+  animation-delay: 10s;
+  -webkit-animation-delay: 10s;
+  -moz-animation-delay: 10s;
+  animation: star-ani 4.5s infinite ease;
+}
+.red:after {
+  border-color: transparent transparent transparent hsl(4, 99%, 49%);
+  animation-delay: 10s;
+  -webkit-animation-delay: 10s;
+  -moz-animation-delay: 10s;
+}
+.purse {
+  top: 20px;
+  left: 60%;
+  background: #554af7;
+  animation-delay: 3s;
+  -webkit-animation-delay: 3s;
+  -moz-animation-delay: 3s;
+  animation: star-ani 7s infinite ease-in-out;
+}
+.purse:after {
+  border-color: transparent transparent transparent #554af7;
+  animation-delay: 3s;
+  -webkit-animation-delay: 3s;
+  -moz-animation-delay: 3s;
+}
+@keyframes star-ani {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(0) translate3d(0, 0, 0);
+    -webkit-transform: scale(0) rotate(0) translate3d(0, 0, 0);
+    -moz-transform: scale(0) rotate(0) translate3d(0, 0, 0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1) rotate(0) translate3d(-300px, 300px, 0);
+    -webkit-transform: scale(1) rotate(0) translate3d(-300px, 300px, 0);
+    -moz-transform: scale(1) rotate(0) translate3d(-300px, 300px, 0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1) rotate(0) translate3d(-500px, 500px, 0);
+    -webkit-transform: scale(1) rotate(0) translate3d(-500px, 500px, 0);
+    -moz-transform: scale(1) rotate(0) translate3d(-500px, 500px, 0);
+  }
 }
 </style>
