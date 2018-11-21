@@ -3,12 +3,12 @@
 </template>
 <script>
 export default {
-    name: 'admin'
+    name: 'admin',
+    layout:'index'
 }
 </script>
 
 <style lang="scss" scoped>
-
 </style>
 
 
