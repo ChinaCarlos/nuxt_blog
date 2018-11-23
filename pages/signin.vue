@@ -50,7 +50,6 @@
   </div>
   </div>
 </template>
-
 <script>
 import {
   USER_SIGN_IN
@@ -239,8 +238,8 @@ export default {
     this.playSvg();
   }
 }
-</script>
 
+</script>
 <style lang="scss">
 .container {
   width: 100%;
@@ -482,6 +481,7 @@ export default {
   border-color: transparent transparent transparent #ffcd5c;
   animation-delay: 5.8s;
 }
+
 .cyan {
   top: 10px;
   left: 70%;
@@ -491,12 +491,14 @@ export default {
   -moz-animation-delay: 8s;
   animation: star-ani 5.2s infinite ease-out;
 }
+
 .cyan:after {
   border-color: transparent transparent transparent hsl(0, 100%, 68%);
   animation-delay: 8s;
   -webkit-animation-delay: 8s;
   -moz-animation-delay: 8s;
 }
+
 .red {
   top: 0px;
   left: 52%;
@@ -506,12 +508,14 @@ export default {
   -moz-animation-delay: 10s;
   animation: star-ani 4.5s infinite ease;
 }
+
 .red:after {
   border-color: transparent transparent transparent hsl(4, 99%, 49%);
   animation-delay: 10s;
   -webkit-animation-delay: 10s;
   -moz-animation-delay: 10s;
 }
+
 .purse {
   top: 20px;
   left: 60%;
@@ -521,12 +525,14 @@ export default {
   -moz-animation-delay: 3s;
   animation: star-ani 7s infinite ease-in-out;
 }
+
 .purse:after {
   border-color: transparent transparent transparent #554af7;
   animation-delay: 3s;
   -webkit-animation-delay: 3s;
   -moz-animation-delay: 3s;
 }
+
 @keyframes star-ani {
   0% {
     opacity: 0;
@@ -549,4 +555,5 @@ export default {
     -moz-transform: scale(1) rotate(0) translate3d(-500px, 500px, 0);
   }
 }
+
 </style>

@@ -44,7 +44,7 @@ module.exports = {
     '@/plugins/element-ui',
     { src: '@/plugins/axios', ssr: false },
     { src: '@/plugins/vivus', ssr: false },
-    { src: '@/plugins/vue-pano', ssr: false },
+    { src: '@/plugins/vue-vr', ssr: false },
     { src: '@/plugins/vue-lazyload', srr: false }
   ],
 

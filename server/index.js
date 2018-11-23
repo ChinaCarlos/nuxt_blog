@@ -111,8 +111,8 @@ async function start() {
     badge: true
   });
   // 输出自定义风格logo风格字符串
-  const str = Alphabet('CMS', 'planar');
-  console.log(str);
+  // const str = Alphabet('CMS', 'planar');
+  // console.log(str);
 }
 
 start();

@@ -34,7 +34,8 @@
     "sass-loader": "^7.1.0",
     "vivus": "^0.4.4",
     "vue-lazyload": "^1.2.6",
-    "vue-pano": "^1.4.1"
+    "vue-pano": "^1.4.1",
+    "vuejs-vr": "^1.0.7"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
