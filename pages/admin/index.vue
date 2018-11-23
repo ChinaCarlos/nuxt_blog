@@ -3,7 +3,7 @@
 </template>
 <script>
 export default {
-    name: 'admin',
+    name: 'index',
     layout:'index'
 }
 </script>

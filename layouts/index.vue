@@ -1,68 +1,52 @@
 <template>
-  <el-container class="page">
-    <el-header class="app-header-box">
-      <app-header />
-    </el-header>
-    <el-container>
-      <el-aside width="200px">Aside</el-aside>
-      <el-main>
+  <div class="page">
+    <el-container class="index-layout">
+      <el-header class="index-layout-header"><index-header></index-header></el-header>
+      <el-main class="index-layout-main">
         <nuxt></nuxt>
       </el-main>
     </el-container>
-  </el-container>
+  </div>
 </template>
 
 <script>
-import appHeader from '../components/common/appHeader'
+import indexHeader from '~/components/common/indexHeader'
 export default {
+  name: '',
   components: {
-    appHeader
+      indexHeader
   }
 }
 </script>
 
 <style lang="scss" scoped>
-html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
-  font-size: 16px;
-  word-spacing: 1px;
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  box-sizing: border-box;
-}
-
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-  margin: 0;
-}
-
 .page {
   width: 100%;
-  min-height: 100%;
-  padding-top: 60px;
-  overflow-y: auto;
+  height: 100%;
 
-  .app-header-box {
-    background: rgb(245, 244, 244);
+  .index-layout {
     width: 100%;
-    height: 60px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 100;
-    padding: 0;
-    box-shadow: 0px 0px 5px #23222299;
-  }
+    height: 100%;
+    padding-top: 60px;
 
-  .app-main-box {
-    width: 100%;
-    height: auto;
-    position: relative;
+    .index-layout-header {
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      padding: 0;
+      margin: 0;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .index-layout-main {
+      min-height: 100%;
+      height: 100%;
+      width: 100%;
+      position: relative;
+      margin: 0;
+      padding: 0;
+    }
   }
 }
 </style>
