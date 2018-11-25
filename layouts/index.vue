@@ -1,7 +1,9 @@
 <template>
   <div class="page">
     <el-container class="index-layout">
-      <el-header class="index-layout-header"><index-header></index-header></el-header>
+      <el-header class="index-layout-header">
+        <index-header></index-header>
+      </el-header>
       <el-main class="index-layout-main">
         <nuxt></nuxt>
       </el-main>
@@ -14,7 +16,7 @@ import indexHeader from '~/components/common/indexHeader'
 export default {
   name: '',
   components: {
-      indexHeader
+    indexHeader
   }
 }
 </script>
@@ -23,6 +25,7 @@ export default {
 .page {
   width: 100%;
   height: 100%;
+  background: #eee;
 
   .index-layout {
     width: 100%;
@@ -44,8 +47,6 @@ export default {
       height: 100%;
       width: 100%;
       position: relative;
-      margin: 0;
-      padding: 0;
     }
   }
 }

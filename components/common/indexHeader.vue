@@ -1,19 +1,30 @@
 <template>
   <el-menu default-active="1" mode="horizontal" background-color="#545c64" text-color="#fff" class="header-menu-list" active-text-color="#ffd04b">
     <div class="index-header-logo">
-      <el-menu-item index="1">处理中心</el-menu-item>
-      <div class="search-box">
-        <el-input placeholder="关键词" class="search">
-          <i slot="suffix" class="el-input__icon el-icon-search"></i>
-        </el-input>
-      </div>
+      <el-menu-item index="1">
+        <img class="logo-image" src="~/assets/images/logo.png" alt="logo">
+        <span class="logo-name">明若清渊</span>
+      </el-menu-item>
     </div>
-    <div class="index-header-right">
-      <el-menu-item index="2">首页</el-menu-item>
-      <el-menu-item index="3">关于我们</el-menu-item>
-      <el-menu-item index="4">API接入</el-menu-item>
-      <el-menu-item index="5">注册</el-menu-item>
-      <el-menu-item index="6">登录</el-menu-item>
+    <div class="index-header-right hidden-sm-and-down">
+      <el-menu-item index="2">
+        <nuxt-link class="link" to="/">首页</nuxt-link>
+      </el-menu-item>
+      <el-menu-item index="3">
+        <nuxt-link class="link" to="/about">关于我们</nuxt-link>
+      </el-menu-item>
+      <el-menu-item index="4">
+        <nuxt-link class="link" to="/apis">API接入</nuxt-link>
+      </el-menu-item>
+      <el-menu-item index="5">
+        <nuxt-link class="link" to="/signup">注册</nuxt-link>
+      </el-menu-item>
+      <el-menu-item index="6">
+        <nuxt-link class="link" to="/signin">登录</nuxt-link>
+      </el-menu-item>
+    </div>
+    <div class="index-header-right hidden-sm-and-up menu-list">
+      <el-menu-item index="6">list</el-menu-item>
     </div>
   </el-menu>
 </template>
@@ -36,16 +47,13 @@ export default {
     overflow: hidden;
     padding-left: 20px;
 
-    .search-box {
-      display: inline-block;
-      .search {
-        input {
-        }
-      }
-      input {
-        height: 30px !important;
-        border-radius: 50% !important;
-      }
+    .logo-image {
+      width: 40px;
+      height: 40px;
+    }
+
+    .logo-name {
+      font-size: 18px;
     }
 
     .el-menu-item {
@@ -57,11 +65,24 @@ export default {
     width: auto;
     height: 100%;
     float: right;
-    padding-right: 50px;
+    margin-right: 40px;
 
     .el-menu-item {
       display: inline-block;
     }
+  }
+
+  .link {
+    text-decoration: none;
+    color: #fff;
+  }
+
+  .nuxt-link-active {
+    color: #ffd04b;
+  }
+
+  .menu-list {
+    margin-right: 0;
   }
 }
 </style>
