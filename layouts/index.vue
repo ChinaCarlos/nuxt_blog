@@ -4,19 +4,40 @@
       <el-header class="index-layout-header">
         <index-header></index-header>
       </el-header>
-      <el-main class="index-layout-main">
+      <el-main class="index-layout-main" id="main">
         <nuxt></nuxt>
       </el-main>
     </el-container>
+    <scroll-to-top @scrollToTop="scrollToTop"></scroll-to-top>
   </div>
 </template>
 
 <script>
 import indexHeader from '~/components/common/indexHeader'
+import scrollToTop from '@/components/common/scrollToTop'
+
 export default {
-  name: '',
   components: {
-    indexHeader
+    indexHeader,
+    scrollToTop
+  },
+  methods: {
+    scrollToTop() {
+      let timer = null
+      cancelAnimationFrame(timer)
+      timer = requestAnimationFrame(function fn() {
+        let top = document.querySelector('#main').scrollTop
+        if (top > 0) {
+          document.querySelector('#main').scrollTop = top - 50
+          timer = requestAnimationFrame(fn)
+        } else {
+          cancelAnimationFrame(timer)
+        }
+      })
+    }
+  },
+  mounted() {
+
   }
 }
 </script>

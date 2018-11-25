@@ -33,7 +33,12 @@
         <el-pagination background layout="prev, pager, next" :total="1000" class="pagination hidden-sm-and-down">
         </el-pagination>
       </div>
-      <div slot="aside">aside</div>
+      <div slot="aside">
+        <user-item></user-item>
+        <recommend-list></recommend-list>
+        <community-list></community-list>
+        <contact-list></contact-list>
+      </div>
     </main-container>
   </div>
 </template>
@@ -41,11 +46,19 @@
 <script>
 import mainContainer from '@/components/common/mainContainer'
 import articleItem from '@/components/common/articleItem'
+import userItem from '@/components/common/userItem'
+import recommendList from '@/components/common/recommendList'
+import communityList from '@/components/common/communityList'
+import contactList from '@/components/common/contactList'
 export default {
   name: 'indexpage',
   components: {
     mainContainer,
-    articleItem
+    articleItem,
+    userItem,
+    recommendList,
+    communityList,
+    contactList,
   },
   data() {
     return {
@@ -58,6 +71,9 @@ export default {
     handleClick(tab, event) {
       console.log(tab, event);
     }
+  },
+  mounted() {
+
   },
   layout: 'index'
 }

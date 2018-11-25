@@ -36,9 +36,7 @@ export default {
   }
 
   .aside-section {
-    background: #fff;
-    height: 50px;
-    border-radius: 4px;
+    height: auto;
     position: relative;
   }
 }
