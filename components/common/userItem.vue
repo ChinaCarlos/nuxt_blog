@@ -7,7 +7,7 @@
         <div class="desc">
           <p class="name">明若清渊</p>
           <p class="sign">我对你是遥遥无期的喜欢。</p>
-          <p class="icons">
+          <div class="icons">
             <el-popover placement="top-start" title="标题" width="200" trigger="hover" content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
               <i class="fa fa-qq" slot="reference"></i>
             </el-popover>
@@ -23,7 +23,7 @@
               <i class="fa fa-github" slot="reference"></i>
             </el-popover>
 
-          </p>
+          </div>
         </div>
     </el-col>
   </el-row>

@@ -1,5 +1,5 @@
 <template>
-  <el-row :gutter="10" class="contain">
+  <el-row :gutter="50" class="contain">
     <el-col :span="18" :xs="24" class="main">
       <div class="main-section">
         <slot name="container"></slot>
