@@ -95,14 +95,32 @@ router.get('/list', async (ctx, next) => {
   let { userId, page = 1, size = 10, keywords = '', sort = -1 } = ctx.query;
   page = Number(page) || 1;
   size = Number(size) || 10;
-  page = Number(page - 1) * size || 1;
+  page = Number(page - 1) * size || 0;
   sort = Number(sort);
   let reg = new RegExp(keywords, 'i');
   if (!userId) {
-    ctx.body = {
-      code: -1,
-      msg: '请求参数错误！'
-    };
+    try {
+      let data = await Tag.find({
+        $or: [{ name: { $regex: reg } }]
+      })
+        .populate({
+          path: 'user',
+          select: 'name id '
+        })
+        .skip(page)
+        .limit(size)
+        .sort({ createAt: sort });
+      ctx.body = {
+        code: 0,
+        data
+      };
+    } catch (error) {
+      console.log('get tags list is error!' + error);
+      ctx.body = {
+        code: -1,
+        msg: '请求参数错误！'
+      };
+    }
   } else {
     try {
       let data = await Tag.find({

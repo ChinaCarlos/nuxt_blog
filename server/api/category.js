@@ -1,6 +1,6 @@
 const router = require('koa-router')();
 const Category = require('../dbs/models/category');
-
+const User = require('../dbs/models/user');
 router.prefix('/v8/category');
 
 // 添加分类
@@ -13,22 +13,30 @@ router.post('/add', async (ctx, next) => {
     };
   } else {
     try {
-      const category = await Category.findOne({ name, user });
-      if (category) {
+      const userObj = await User.findOne({ _id: user });
+      if (userObj.role != 0) {
         ctx.body = {
           code: -1,
-          msg: '该分类已经存在！'
+          msg: '没有添加category的权限！'
         };
       } else {
-        let category = new Category({
-          name,
-          user
-        });
-        let result = await category.save();
-        ctx.body = {
-          code: 0,
-          result
-        };
+        const category = await Category.findOne({ name, user });
+        if (category) {
+          ctx.body = {
+            code: -1,
+            msg: '该分类已经存在！'
+          };
+        } else {
+          let category = new Category({
+            name,
+            user
+          });
+          let result = await category.save();
+          ctx.body = {
+            code: 0,
+            result
+          };
+        }
       }
     } catch (error) {
       console.log('save category is error ' + error);
@@ -65,22 +73,30 @@ router.delete('/delete', async (ctx, next) => {
 });
 // 修改
 router.put('/update', async (ctx, next) => {
-  const { categoryId, name } = ctx.request.body;
-  if (!name || !categoryId) {
+  const { categoryId, name, user } = ctx.request.body;
+  if (!name || !categoryId || !user) {
     ctx.body = {
       code: -1,
       msg: '参数错误！'
     };
   } else {
     try {
-      let result = await Category.findOneAndUpdate(
-        { _id: categoryId },
-        { name }
-      );
-      ctx.body = {
-        code: 0,
-        result
-      };
+      const userObj = await User.findOne({ _id: user });
+      if (userObj.role != 0) {
+        ctx.body = {
+          code: -1,
+          msg: '没有修改category的权限！'
+        };
+      } else {
+        let result = await Category.findOneAndUpdate(
+          { _id: categoryId },
+          { name }
+        );
+        ctx.body = {
+          code: 0,
+          result
+        };
+      }
     } catch (error) {
       console.log('update category is error!');
       ctx.body = {
@@ -93,17 +109,41 @@ router.put('/update', async (ctx, next) => {
 
 // 查看
 router.get('/list', async (ctx, next) => {
-  let { userId, page = 1, size = 10, keywords = '', sort = -1 } = ctx.query;
+  let {
+    userId = '',
+    page = 1,
+    size = 10,
+    keywords = '',
+    sort = -1
+  } = ctx.query;
   page = Number(page) || 1;
   size = Number(size) || 10;
-  page = Number(page - 1) * size || 1;
+  page = Number(page - 1) * size || 0;
   sort = Number(sort);
   let reg = new RegExp(keywords, 'i');
   if (!userId) {
-    ctx.body = {
-      code: -1,
-      msg: '请求参数错误！'
-    };
+    try {
+      let data = await Category.find({
+        $or: [{ name: { $regex: reg } }]
+      })
+        .populate({
+          path: 'user',
+          select: 'name id '
+        })
+        .skip(page)
+        .limit(size)
+        .sort({ createAt: sort });
+      ctx.body = {
+        code: 0,
+        data
+      };
+    } catch (error) {
+      console.log('get category list is error!' + error);
+      ctx.body = {
+        code: -1,
+        msg: '请求参数错误！'
+      };
+    }
   } else {
     try {
       let data = await Category.find({
