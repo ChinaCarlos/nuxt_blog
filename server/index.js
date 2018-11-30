@@ -11,6 +11,7 @@ const Alphabet = require('alphabetjs');
 // 自定义api接口
 const tag = require('./api/tag');
 const login = require('./api/login');
+const category = require('./api/category');
 
 const app = new Koa();
 const host = process.env.HOST || '0.0.0.0';
@@ -91,6 +92,7 @@ async function start() {
   // 使用自定义API 接口路由
   app.use(login.routes(), login.allowedMethods());
   app.use(tag.routes(), tag.allowedMethods());
+  app.use(category.routes(), category.allowedMethods());
   app.use(ctx => {
     ctx.status = 200; // koa defaults to 404 when it sees that status is unset
 

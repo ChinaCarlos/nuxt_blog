@@ -1,96 +1,97 @@
 const router = require('koa-router')();
-const Tag = require('../dbs/models/tag');
-router.prefix('/v8/tag');
+const Category = require('../dbs/models/category');
 
-// 添加tag
+router.prefix('/v8/category');
+
+// 添加分类
 router.post('/add', async (ctx, next) => {
   const { name, user } = ctx.request.body;
   if (!name || !user) {
     ctx.body = {
       code: -1,
-      msg: '提交信息不合法！'
+      msg: '参数错误！'
     };
-  }
-  try {
-    //   查找给标签是否存在
-    const tags = await Tag.findOne({
-      name,
-      user
-    });
-    if (tags) {
+  } else {
+    try {
+      const category = await Category.findOne({ name, user });
+      if (category) {
+        ctx.body = {
+          code: -1,
+          msg: '该分类已经存在！'
+        };
+      } else {
+        let category = new Category({
+          name,
+          user
+        });
+        let result = await category.save();
+        ctx.body = {
+          code: 0,
+          result
+        };
+      }
+    } catch (error) {
+      console.log('save category is error ' + error);
       ctx.body = {
         code: -1,
-        msg: '该标签已存在！'
-      };
-    } else {
-      // 添加新标签
-      const tag = new Tag({
-        name,
-        user
-      });
-      const result = await tag.save();
-      ctx.body = {
-        code: 0,
-        result
+        msg: 'save category is error'
       };
     }
-  } catch (error) {
-    console.log('save tag is error!' + error);
-    ctx.body = {
-      code: -1,
-      msg: 'save tag is error!'
-    };
   }
 });
-// 删除tag 这里不应真删除
+// 删除
 router.delete('/delete', async (ctx, next) => {
-  const { tagId } = ctx.request.body;
-  if (!tagId) {
+  let { categoryId } = ctx.request.body;
+  if (!categoryId) {
     ctx.body = {
       code: -1,
       msg: '参数错误！'
     };
   } else {
     try {
-      let result = await Tag.findOneAndDelete({ _id: tagId });
+      let result = await Category.findOneAndDelete({ _id: categoryId });
       ctx.body = {
         code: 0,
         result
       };
     } catch (error) {
-      console.log('delete tagId is error' + error);
+      console.log('delete category is error' + error);
       ctx.body = {
         code: -1,
-        msg: '删除tag失败！'
+        msg: 'delete category is error!'
       };
     }
   }
 });
-// 修改tag
+// 修改
 router.put('/update', async (ctx, next) => {
-  const { name, tagId } = ctx.request.body;
-  if (!name) {
+  const { categoryId, name } = ctx.request.body;
+  if (!name || !categoryId) {
     ctx.body = {
       code: -1,
       msg: '参数错误！'
     };
   } else {
     try {
-      const result = await Tag.findOneAndUpdate({ _id: tagId }, { name });
+      let result = await Category.findOneAndUpdate(
+        { _id: categoryId },
+        { name }
+      );
       ctx.body = {
         code: 0,
         result
       };
     } catch (error) {
-      console.log('update tag is error' + error);
+      console.log('update category is error!');
       ctx.body = {
         code: -1,
-        msg: '更新tag失败！'
+        msg: 'update category is error!'
       };
     }
   }
 });
-// 查看tag
+
+// 查看
 router.get('/list', async (ctx, next) => {
   let { userId, page = 1, size = 10, keywords = '', sort = -1 } = ctx.query;
   page = Number(page) || 1;
@@ -105,7 +106,7 @@ router.get('/list', async (ctx, next) => {
     };
   } else {
     try {
-      let data = await Tag.find({
+      let data = await Category.find({
         user: userId,
         $or: [{ name: { $regex: reg } }]
       })
