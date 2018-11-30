@@ -122,7 +122,7 @@ router.get('/list', async (ctx, next) => {
         data
       };
     } catch (error) {
-      console.log('get tags list is error!' + error);
+      console.log('get category list is error!' + error);
       ctx.body = {
         code: -1,
         msg: '请求参数错误！'

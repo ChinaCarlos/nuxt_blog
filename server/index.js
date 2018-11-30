@@ -12,6 +12,7 @@ const Alphabet = require('alphabetjs');
 const tag = require('./api/tag');
 const login = require('./api/login');
 const category = require('./api/category');
+const article = require('./api/article');
 
 const app = new Koa();
 const host = process.env.HOST || '0.0.0.0';
@@ -93,6 +94,7 @@ async function start() {
   app.use(login.routes(), login.allowedMethods());
   app.use(tag.routes(), tag.allowedMethods());
   app.use(category.routes(), category.allowedMethods());
+  app.use(article.routes(), article.allowedMethods());
   app.use(ctx => {
     ctx.status = 200; // koa defaults to 404 when it sees that status is unset
 
