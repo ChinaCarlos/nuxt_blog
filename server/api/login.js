@@ -110,7 +110,7 @@ router.post('/sendCode', async (ctx, next) => {
     return false;
   }
   try {
-    // 家发送的验证码保存到reids 中
+    // 家发送的验证码保存到redis 中
     let verifyCodeRedis = await Store.hset('nodemailer', email, verifyCode);
   } catch (error) {
     console.log('redis 存储邮箱验证码到Redis中失败！' + error);

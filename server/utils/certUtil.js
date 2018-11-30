@@ -37,10 +37,10 @@ function getToken(data) {
 }
 
 function getRandomCode() {
-  return Math.random()
-    .toString(16)
-    .slice(2, 6)
-    .toUpperCase();
+
+  return Math.random().toString(16).slice(2, 6).toUpperCase();
+
+
 }
 
 module.exports = {

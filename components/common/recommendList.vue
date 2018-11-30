@@ -1,7 +1,10 @@
 <template>
   <el-row class="recommendList">
     <el-col :span="24">
-      <h3 class="title"><i class="fa fa-fire"></i> 文章推荐</h3>
+      <h3 class="title">
+        <i class="fa fa-fire"></i>
+        <span>文章推荐</span>
+      </h3>
       <ul class="recommend-article-list">
         <li class="article-item" v-for="(item,index) in 18" :key="index">
           <nuxt-link class="link" to="/article/23">{{index+1}}.&nbsp;浅谈Easy-mock 最好的备胎没有之一</nuxt-link>
@@ -13,8 +16,8 @@
 
 <script>
 export default {
-  name: 'recommendList'
-}
+  name: "recommendList"
+};
 </script>
 
 <style lang="scss" scoped>
@@ -24,13 +27,11 @@ export default {
   border-radius: 6px;
   height: 500px;
   padding: 20px;
-
   .recommend-article-list {
     list-style: none;
     padding: 0;
     width: 100%;
     height: 100%;
-
     .article-item {
       font-size: 14px;
       display: block;
@@ -40,12 +41,9 @@ export default {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-
       transition-duration: 0.5s;
-
       .link {
         color: #409eff;
-
         &:hover {
           color: red;
           text-decoration: underline;
@@ -53,7 +51,6 @@ export default {
       }
     }
   }
-
   .title {
     font-size: 16px;
     color: #333;

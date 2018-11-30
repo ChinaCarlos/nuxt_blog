@@ -9,12 +9,11 @@ const Alphabet = require('alphabetjs');
 // 集成日志
 // const logUtil = require('../utils/log_util');
 // 自定义api接口
-const city = require('./api/city');
-const user = require('./api/user');
+const tag = require('./api/tag');
 const login = require('./api/login');
 
 const app = new Koa();
-const host = process.env.HOST || '127.0.0.1';
+const host = process.env.HOST || '0.0.0.0';
 const port = process.env.PORT || 3000;
 // mongodb
 const mongoose = require('mongoose');
@@ -58,7 +57,8 @@ async function start() {
   mongoose.connect(
     configs.dbs,
     {
-      useNewUrlParser: true
+      useNewUrlParser: true,
+      useFindAndModify: false
     }
   );
   // redis session
@@ -89,9 +89,8 @@ async function start() {
     });
   });
   // 使用自定义API 接口路由
-  app.use(city.routes()).use(city.allowedMethods());
-  app.use(user.routes(), user.allowedMethods());
   app.use(login.routes(), login.allowedMethods());
+  app.use(tag.routes(), tag.allowedMethods());
   app.use(ctx => {
     ctx.status = 200; // koa defaults to 404 when it sees that status is unset
 

@@ -20,14 +20,24 @@ const UserSchema = new Schema({
   },
   role: {
     type: Number,
-    require: true
+    require: true,
+    default: 1
   },
   createdTime: {
     type: Date,
     require: true
   },
   lastLogin: {
-    type: Date
+    type: Date,
+    default: Date.now
   }
 });
+
+UserSchema.options.toJSON = {
+  virtuals: true,
+  versionKey: false,
+  transform(doc, ret) {
+    ret.id = ret._id;
+  }
+};
 module.exports = mongoose.model('User', UserSchema);
