@@ -1,7 +1,7 @@
 const router = require('koa-router')();
 const Category = require('../dbs/models/category');
 const User = require('../dbs/models/user');
-router.prefix('/v8/category');
+router.prefix('/api/v8/category');
 
 // 添加分类
 router.post('/add', async (ctx, next) => {

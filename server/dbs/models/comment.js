@@ -17,11 +17,15 @@ const CommentSchema = new Schema({
     type: String,
     require: true
   },
-  replay: {
+  reply: {
     type: Schema.Types.ObjectId,
     ref: 'User'
   },
   createdAt: {
+    type: Date,
+    default: Date.now
+  },
+  updatedAt: {
     type: Date,
     default: Date.now
   }

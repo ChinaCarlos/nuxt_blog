@@ -1,6 +1,6 @@
 const router = require('koa-router')();
 const Tag = require('../dbs/models/tag');
-router.prefix('/v8/tag');
+router.prefix('/api/v8/tag');
 
 // 添加tag
 router.post('/add', async (ctx, next) => {

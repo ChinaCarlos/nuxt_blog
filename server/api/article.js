@@ -1,7 +1,7 @@
 const router = require('koa-router')();
 const Article = require('../dbs/models/article');
 
-router.prefix('/v8/article');
+router.prefix('/api/v8/article');
 
 // 添加文章
 router.post('/add', async (ctx, next) => {
