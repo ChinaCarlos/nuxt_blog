@@ -99,17 +99,18 @@ router.get('/list', async (ctx, next) => {
   sort = Number(sort);
   let reg = new RegExp(keywords, 'i');
   let filter = null;
+
+  if (!userId) {
+    filter = {
+      $or: [{ name: { $regex: reg } }]
+    };
+  } else {
+    filter = {
+      user: userId,
+      $or: [{ name: { $regex: reg } }]
+    };
+  }
   try {
-    if (!userId) {
-      filter = {
-        $or: [{ name: { $regex: reg } }]
-      };
-    } else {
-      filter = {
-        user: userId,
-        $or: [{ name: { $regex: reg } }]
-      };
-    }
     const data = await Tag.find(filter)
       .populate({
         path: 'user',
