@@ -10,7 +10,11 @@ module.exports = {
     title: pkg.name,
     meta: [
       { charset: 'utf-8' },
-      { name: 'viewport', content: 'maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0' },
+      {
+        name: 'viewport',
+        content:
+          'maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0'
+      },
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
@@ -45,7 +49,8 @@ module.exports = {
     { src: '@/plugins/axios', ssr: false },
     { src: '@/plugins/vivus', ssr: false },
     { src: '@/plugins/vue-pano', ssr: false },
-    { src: '@/plugins/vue-lazyload', srr: false }
+    { src: '@/plugins/vue-lazyload', srr: false },
+    { src: '@/plugins/vue-editor', srr: false }
   ],
 
   /*
