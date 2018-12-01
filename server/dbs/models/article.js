@@ -35,10 +35,6 @@ const ArticleSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  publishedAt: {
-    type: Date,
-    default: Date.now
-  },
   updatedAt: {
     type: Date,
     default: Date.now

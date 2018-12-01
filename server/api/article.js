@@ -15,7 +15,7 @@ router.post('/add', async (ctx, next) => {
     wrapper = '',
     published = false
   } = ctx.request.body;
-  if (!author || !title || !content || !(category.length === 0)) {
+  if (!author || !title || !content || category.length === 0) {
     ctx.body = {
       code: 0,
       msg: '参数错误！'
@@ -72,7 +72,6 @@ router.delete('/delete', async (ctx, next) => {
 // 修改文章
 router.put('/update', async (ctx, next) => {
   const {
-    author,
     title,
     content,
     category = [],
@@ -81,7 +80,7 @@ router.put('/update', async (ctx, next) => {
     published = false,
     articleId
   } = ctx.request.body;
-  if (!author || !title || !content || !articleId || !(category.length === 0)) {
+  if (!title || !content || !articleId || category.length === 0) {
     ctx.body = {
       code: 0,
       msg: '参数错误！'
@@ -92,13 +91,13 @@ router.put('/update', async (ctx, next) => {
     let result = await Article.findOneAndUpdate(
       { _id: articleId },
       {
-        author,
         title,
         content,
         category,
         tags,
         wrapper,
-        published
+        published,
+        updatedAt: new Date()
       }
     );
     ctx.body = {
@@ -126,20 +125,12 @@ router.get('/list', async (ctx, next) => {
   let filter = null;
   if (!userId) {
     filter = {
-      $or: [
-        { title: { $regex: reg } },
-        { author: { $regex: reg } },
-        { content: { $regex: reg } }
-      ]
+      $or: [{ title: { $regex: reg } }, { content: { $regex: reg } }]
     };
   } else {
     filter = {
-      user: userId,
-      $or: [
-        { title: { $regex: reg } },
-        { author: { $regex: reg } },
-        { content: { $regex: reg } }
-      ]
+      author: userId,
+      $or: [{ title: { $regex: reg } }, { content: { $regex: reg } }]
     };
   }
   try {
@@ -147,6 +138,18 @@ router.get('/list', async (ctx, next) => {
       .populate({
         path: 'user',
         select: 'name id '
+      })
+      .populate({
+        path: 'category',
+        select: 'id name'
+      })
+      .populate({
+        path: 'tags',
+        select: 'name id'
+      })
+      .populate({
+        path: 'author',
+        select: 'name id'
       })
       .skip(page)
       .limit(size)
