@@ -22,18 +22,18 @@ router.post('/add', async (ctx, next) => {
         code: -1,
         msg: '该标签已存在！'
       };
-    } else {
-      // 添加新标签
-      const tag = new Tag({
-        name,
-        user
-      });
-      const result = await tag.save();
-      ctx.body = {
-        code: 0,
-        result
-      };
+      return false;
     }
+    // 添加新标签
+    const tag = new Tag({
+      name,
+      user
+    });
+    const result = await tag.save();
+    ctx.body = {
+      code: 0,
+      result
+    };
   } catch (error) {
     console.log('save tag is error!' + error);
     ctx.body = {
@@ -50,20 +50,20 @@ router.delete('/delete', async (ctx, next) => {
       code: -1,
       msg: '参数错误！'
     };
-  } else {
-    try {
-      let result = await Tag.findOneAndDelete({ _id: tagId });
-      ctx.body = {
-        code: 0,
-        result
-      };
-    } catch (error) {
-      console.log('delete tagId is error' + error);
-      ctx.body = {
-        code: -1,
-        msg: '删除tag失败！'
-      };
-    }
+    return false;
+  }
+  try {
+    let result = await Tag.findOneAndDelete({ _id: tagId });
+    ctx.body = {
+      code: 0,
+      result
+    };
+  } catch (error) {
+    console.log('delete tagId is error' + error);
+    ctx.body = {
+      code: -1,
+      msg: '删除tag失败！'
+    };
   }
 });
 // 修改tag
@@ -98,53 +98,36 @@ router.get('/list', async (ctx, next) => {
   page = Number(page - 1) * size || 0;
   sort = Number(sort);
   let reg = new RegExp(keywords, 'i');
-  if (!userId) {
-    try {
-      let data = await Tag.find({
+  let filter = null;
+  try {
+    if (!userId) {
+      filter = {
         $or: [{ name: { $regex: reg } }]
-      })
-        .populate({
-          path: 'user',
-          select: 'name id '
-        })
-        .skip(page)
-        .limit(size)
-        .sort({ createAt: sort });
-      ctx.body = {
-        code: 0,
-        data
       };
-    } catch (error) {
-      console.log('get tags list is error!' + error);
-      ctx.body = {
-        code: -1,
-        msg: '请求参数错误！'
-      };
-    }
-  } else {
-    try {
-      let data = await Tag.find({
+    } else {
+      filter = {
         user: userId,
         $or: [{ name: { $regex: reg } }]
-      })
-        .populate({
-          path: 'user',
-          select: 'name id '
-        })
-        .skip(page)
-        .limit(size)
-        .sort({ createAt: sort });
-      ctx.body = {
-        code: 0,
-        data
-      };
-    } catch (error) {
-      console.log('get tags list is error!' + error);
-      ctx.body = {
-        code: -1,
-        msg: '请求参数错误！'
       };
     }
+    const data = await Tag.find(filter)
+      .populate({
+        path: 'user',
+        select: 'name id '
+      })
+      .skip(page)
+      .limit(size)
+      .sort({ createAt: sort });
+    ctx.body = {
+      code: 0,
+      data
+    };
+  } catch (error) {
+    console.log('get tags list is error!' + error);
+    ctx.body = {
+      code: -1,
+      msg: '请求参数错误！'
+    };
   }
 });
 module.exports = router;
