@@ -123,6 +123,7 @@ router.get('/list', async (ctx, next) => {
   sort = Number(sort);
   let reg = new RegExp(keywords, 'i');
   let filter = null;
+  // Object.assign 下面写法不对
   if (!userId) {
     filter = {
       $or: [{ title: { $regex: reg } }, { content: { $regex: reg } }]

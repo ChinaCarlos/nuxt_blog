@@ -51,8 +51,8 @@ router.post('/add', async (ctx, next) => {
 });
 // 删除评论
 router.delete('/delete', async (ctx, next) => {
-  const { articleId } = ctx.request.body;
-  if (!articleId) {
+  const { commentId, articleId } = ctx.request.body;
+  if (!commentId || !articleId) {
     ctx.body = {
       code: -1,
       msg: '参数错误！'
@@ -60,7 +60,12 @@ router.delete('/delete', async (ctx, next) => {
     return false;
   }
   try {
-    let result = await Comment.findOneAndDelete({ id: articleId });
+    let result = await Comment.findOneAndDelete({ _id: commentId });
+    await Article.findOneAndUpdate(
+      { _id: articleId },
+      { $pull: { comments: commentId } },
+      { safe: true, upsert: true }
+    );
     ctx.body = {
       code: 0,
       result
@@ -103,6 +108,10 @@ router.get('/list', async (ctx, next) => {
       .populate({
         path: 'user',
         select: 'name id '
+      })
+      .populate({
+        path: 'article',
+        select: 'id title author'
       })
       .skip(page)
       .limit(size)
