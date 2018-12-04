@@ -132,7 +132,6 @@ router.get('/list', async (ctx, next) => {
   let filter = {
     $or: [{ title: { $regex: reg } }, { content: { $regex: reg } }]
   };
-  // Object.assign 下面写法不对
   if (userId) {
     filter = Object.assign(filter, { author: userId });
   }
@@ -160,9 +159,13 @@ router.get('/list', async (ctx, next) => {
       .skip(page)
       .limit(size)
       .sort({ createAt: sort });
+    const total = await Article.find(filter);
     ctx.body = {
       code: 0,
-      data
+      data,
+      total: total.length,
+      page: page + 1,
+      size
     };
   } catch (error) {
     console.log('get article list is error!' + error);

@@ -27,9 +27,13 @@ const ArticleSchema = new Schema({
     type: Number,
     default: 0
   },
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: 'Category',
+    require: true
+  },
   likes: [{ type: Schema.Types.ObjectId, ref: 'User' }],
   comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
-  category: [{ type: Schema.Types.ObjectId, ref: 'Category' }],
   tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }],
   createdAt: {
     type: Date,

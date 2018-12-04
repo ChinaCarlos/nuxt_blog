@@ -68,7 +68,8 @@ export default {
     return {
       userInfo: {},
       activeName: "all",
-      categories: []
+      categories: [],
+      articlesList: []
     };
   },
   comupted() {},
@@ -76,7 +77,7 @@ export default {
     handleClick(tab, event) {
       console.log(tab, event);
     },
-    async initData() {
+    async getCategories() {
       const res = await this.$axios.get(CATEGORY_LIST);
       if (res.data.code === 0) {
         this.categories = res.data.data;
@@ -86,6 +87,27 @@ export default {
           message: res.msg
         });
       }
+    },
+    async getArticleLists(category = "", page = 1, size = 10) {
+      const res = await this.$axios.get(ARTICLE_LIST, {
+        params: {
+          category,
+          page,
+          size
+        }
+      });
+      if (res.data.code === 0) {
+        this.articlesList = res.data.data;
+      } else {
+        this.$message({
+          type: "error",
+          message: res.msg
+        });
+      }
+    },
+    initData() {
+      this.getCategories();
+      this.getArticleLists();
     }
   },
   mounted() {
