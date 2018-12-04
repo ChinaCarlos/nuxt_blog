@@ -5,6 +5,7 @@
     <main-container>
       <div slot="container">
         <el-tabs v-model="activeName" @tab-click="handleClick">
+          <el-tab-pane key="all" name="all" label="全部"></el-tab-pane>
           <el-tab-pane
             v-for="item in categories"
             :key="item.id"
@@ -66,7 +67,7 @@ export default {
   data() {
     return {
       userInfo: {},
-      activeName: "",
+      activeName: "all",
       categories: []
     };
   },
@@ -79,7 +80,6 @@ export default {
       const res = await this.$axios.get(CATEGORY_LIST);
       if (res.data.code === 0) {
         this.categories = res.data.data;
-        this.activeName = this.categories[0].name;
       } else {
         this.$message({
           type: "error",

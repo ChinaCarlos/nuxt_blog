@@ -5,17 +5,17 @@ router.prefix('/api/v8/article');
 
 // 添加文章
 router.post('/add', async (ctx, next) => {
-  // 这里的category, tags 是数组
+  // tags 是数组
   const {
     author,
     title,
     content,
-    category = [],
+    category,
     tags = [],
     wrapper = '',
     published = false
   } = ctx.request.body;
-  if (!author || !title || !content || category.length === 0) {
+  if (!author || !title || !content || !category) {
     ctx.body = {
       code: 0,
       msg: '参数错误！'
@@ -74,13 +74,13 @@ router.put('/update', async (ctx, next) => {
   const {
     title,
     content,
-    category = [],
+    category,
     wrapper = '',
     tags = [],
     published = false,
     articleId
   } = ctx.request.body;
-  if (!title || !content || !articleId || category.length === 0) {
+  if (!title || !content || !articleId || !category) {
     ctx.body = {
       code: 0,
       msg: '参数错误！'
@@ -116,23 +116,28 @@ router.put('/update', async (ctx, next) => {
 router.get('/detail:id', async (ctx, next) => {});
 // 查看文章列表
 router.get('/list', async (ctx, next) => {
-  let { userId, page = 1, size = 10, keywords = '', sort = -1 } = ctx.query;
+  let {
+    userId,
+    page = 1,
+    category,
+    size = 10,
+    keywords = '',
+    sort = -1
+  } = ctx.query;
   page = Number(page) || 1;
   size = Number(size) || 10;
   page = Number(page - 1) * size || 0;
   sort = Number(sort);
   let reg = new RegExp(keywords, 'i');
-  let filter = null;
+  let filter = {
+    $or: [{ title: { $regex: reg } }, { content: { $regex: reg } }]
+  };
   // Object.assign 下面写法不对
-  if (!userId) {
-    filter = {
-      $or: [{ title: { $regex: reg } }, { content: { $regex: reg } }]
-    };
-  } else {
-    filter = {
-      author: userId,
-      $or: [{ title: { $regex: reg } }, { content: { $regex: reg } }]
-    };
+  if (userId) {
+    filter = Object.assign(filter, { author: userId });
+  }
+  if (category) {
+    filter = Object.assign(filter, { category });
   }
   try {
     let data = await Article.find(filter)
