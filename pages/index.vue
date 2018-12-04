@@ -5,14 +5,12 @@
     <main-container>
       <div slot="container">
         <el-tabs v-model="activeName" @tab-click="handleClick">
-          <el-tab-pane label="全部" name="first"></el-tab-pane>
-          <el-tab-pane label="Vue" name="second"></el-tab-pane>
-          <el-tab-pane label="React" name="React"></el-tab-pane>
-          <el-tab-pane label="Golang" name="Golang"></el-tab-pane>
-          <el-tab-pane label="CSS3" name="CSS3"></el-tab-pane>
-          <el-tab-pane label="Javascript" name="Javascript"></el-tab-pane>
-          <el-tab-pane label="HTML5" name="HTML5"></el-tab-pane>
-          <el-tab-pane label="Angular" name="fourth"></el-tab-pane>
+          <el-tab-pane
+            v-for="item in categories"
+            :key="item.id"
+            :name="item.name"
+            :label="item.name"
+          ></el-tab-pane>
         </el-tabs>
         <!-- 文章列表 -->
         <el-row>
@@ -30,8 +28,12 @@
           </el-col>
         </el-row>
         <!-- 分页 -->
-        <el-pagination background layout="prev, pager, next" :total="1000" class="pagination hidden-sm-and-down">
-        </el-pagination>
+        <el-pagination
+          background
+          layout="prev, pager, next"
+          :total="1000"
+          class="pagination hidden-sm-and-down"
+        ></el-pagination>
       </div>
       <div slot="aside">
         <user-item></user-item>
@@ -44,39 +46,53 @@
 </template>
 
 <script>
-import mainContainer from '@/components/common/mainContainer'
-import articleItem from '@/components/common/articleItem'
-import userItem from '@/components/common/userItem'
-import recommendList from '@/components/common/recommendList'
-import communityList from '@/components/common/communityList'
-import contactList from '@/components/common/contactList'
+import mainContainer from "@/components/common/mainContainer";
+import articleItem from "@/components/common/articleItem";
+import userItem from "@/components/common/userItem";
+import recommendList from "@/components/common/recommendList";
+import communityList from "@/components/common/communityList";
+import contactList from "@/components/common/contactList";
+import { CATEGORY_LIST, ARTICLE_LIST } from "../constant/api";
 export default {
-  name: 'indexpage',
+  name: "indexpage",
   components: {
     mainContainer,
     articleItem,
     userItem,
     recommendList,
     communityList,
-    contactList,
+    contactList
   },
   data() {
     return {
       userInfo: {},
-      activeName: 'second'
-    }
+      activeName: "",
+      categories: []
+    };
   },
   comupted() {},
   methods: {
     handleClick(tab, event) {
       console.log(tab, event);
+    },
+    async initData() {
+      const res = await this.$axios.get(CATEGORY_LIST);
+      if (res.data.code === 0) {
+        this.categories = res.data.data;
+        this.activeName = this.categories[0].name;
+      } else {
+        this.$message({
+          type: "error",
+          message: res.msg
+        });
+      }
     }
   },
   mounted() {
-
+    this.initData();
   },
-  layout: 'index'
-}
+  layout: "index"
+};
 </script>
 
 <style lang="scss" scoped>
