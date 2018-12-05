@@ -119,9 +119,13 @@ router.get('/list', async (ctx, next) => {
       .skip(page)
       .limit(size)
       .sort({ createAt: sort });
+    const total = await Tag.find(filter);
     ctx.body = {
       code: 0,
-      data
+      data,
+      total: total.length,
+      page: page + 1,
+      size
     };
   } catch (error) {
     console.log('get tags list is error!' + error);

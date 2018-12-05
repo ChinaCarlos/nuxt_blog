@@ -138,10 +138,14 @@ router.get('/list', async (ctx, next) => {
       .skip(page)
       .limit(size)
       .sort({ createAt: sort });
-    ctx.body = {
-      code: 0,
-      data
-    };
+      const total = await Category.find(filter);
+      ctx.body = {
+        code: 0,
+        data,
+        total: total.length,
+        page: page + 1,
+        size
+      };
   } catch (error) {
     console.log('get category list is error!' + error);
     ctx.body = {

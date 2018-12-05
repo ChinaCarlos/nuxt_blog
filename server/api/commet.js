@@ -116,9 +116,13 @@ router.get('/list', async (ctx, next) => {
       .skip(page)
       .limit(size)
       .sort({ createAt: sort });
+    const total = await Comment.find(filter);
     ctx.body = {
       code: 0,
-      data
+      data,
+      total: total.length,
+      page: page + 1,
+      size
     };
   } catch (error) {
     console.log('get comment list is error!' + error);
