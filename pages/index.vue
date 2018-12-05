@@ -16,16 +16,7 @@
         <!-- 文章列表 -->
         <el-row>
           <el-col>
-            <article-item></article-item>
-            <article-item></article-item>
-            <article-item></article-item>
-            <article-item></article-item>
-            <article-item></article-item>
-            <article-item></article-item>
-            <article-item></article-item>
-            <article-item></article-item>
-            <article-item></article-item>
-            <article-item></article-item>
+            <article-item v-for="articleItem in articlesList" :key="articleItem.id"></article-item>
           </el-col>
         </el-row>
         <!-- 分页 -->
@@ -105,13 +96,13 @@ export default {
         });
       }
     },
-    initData() {
-      this.getCategories();
-      this.getArticleLists();
+    async initData() {
+      await this.getCategories();
+      await this.getArticleLists();
     }
   },
-  mounted() {
-    this.initData();
+  async mounted() {
+    await this.initData();
   },
   layout: "index"
 };

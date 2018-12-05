@@ -19,6 +19,10 @@ const ArticleSchema = new Schema({
     type: String,
     require: true
   },
+  markdown: {
+    type: String,
+    require: true
+  },
   published: {
     type: Boolean,
     default: false

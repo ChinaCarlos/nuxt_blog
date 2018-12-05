@@ -1,12 +1,12 @@
 /**
- * POST
+ * 所有请求接口
  */
 const ONLINE_HOST = 'http://116.85.35.63:3000';
 const LOCAL_HOST = 'http://localhost:3000';
-const HOST = ONLINE_HOST;
-export const USER_SIGN_UP = HOST + '/api/users/signUp'; // 注册
-export const USER_SEND_VERIFY_CODE = HOST + '/api/users/sendCode'; // 发送邮箱验证码
-export const USER_SIGN_IN = HOST + '/api/users/signIn'; // 用户登录
+const HOST = LOCAL_HOST;
+export const USER_SIGN_UP = HOST + '/api/v8/users/signUp'; // 注册
+export const USER_SEND_VERIFY_CODE = HOST + '/api/v8/users/sendCode'; // 发送邮箱验证码
+export const USER_SIGN_IN = HOST + '/api/v8/users/signIn'; // 用户登录
 
 // 文章类型接口
 export const CATEGORY_LIST = HOST + `/api/v8/category/list`;

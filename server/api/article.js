@@ -11,11 +11,12 @@ router.post('/add', async (ctx, next) => {
     title,
     content,
     category,
+    markdown,
     tags = [],
     wrapper = '',
     published = false
   } = ctx.request.body;
-  if (!author || !title || !content || !category) {
+  if (!author || !title || !content || !category || !markdown) {
     ctx.body = {
       code: 0,
       msg: '参数错误！'
@@ -30,6 +31,7 @@ router.post('/add', async (ctx, next) => {
       category,
       tags,
       wrapper,
+      markdown,
       published
     });
     let result = await article.save();
@@ -78,9 +80,10 @@ router.put('/update', async (ctx, next) => {
     wrapper = '',
     tags = [],
     published = false,
-    articleId
+    articleId,
+    markdown
   } = ctx.request.body;
-  if (!title || !content || !articleId || !category) {
+  if (!title || !content || !articleId || !category || !markdown) {
     ctx.body = {
       code: 0,
       msg: '参数错误！'
@@ -97,6 +100,7 @@ router.put('/update', async (ctx, next) => {
         tags,
         wrapper,
         published,
+        markdown,
         updatedAt: new Date()
       }
     );

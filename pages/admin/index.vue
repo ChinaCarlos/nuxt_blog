@@ -1,7 +1,12 @@
 <template>
   <div class="admin">
     <no-ssr>
-      <mavon-editor :toolbars="markdownOption" v-model="handbook"/>
+      <mavon-editor
+        :toolbars="markdownOption"
+        v-model="handbook"
+        @save="saveArticle"
+        style="height: 100%"
+      />
     </no-ssr>
   </div>
 </template>
@@ -44,6 +49,11 @@ export default {
       },
       handbook: "#### nuxt.js srr"
     };
+  },
+  methods: {
+    saveArticle(markdown, htmlStr) {
+      console.log(markdown, strhtmlStr1);
+    }
   }
 };
 </script>

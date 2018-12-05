@@ -13,7 +13,8 @@ const tag = require('./api/tag');
 const user = require('./api/user');
 const category = require('./api/category');
 const article = require('./api/article');
-const comment = require('./api/commet');
+const comment = require('./api/comment');
+const public = require('./api/public')
 
 const app = new Koa();
 const host = process.env.HOST || '0.0.0.0';
@@ -97,6 +98,7 @@ async function start() {
   app.use(category.routes(), category.allowedMethods());
   app.use(article.routes(), article.allowedMethods());
   app.use(comment.routes(), comment.allowedMethods());
+  app.use(public.routes(), public.allowedMethods());
   app.use(ctx => {
     ctx.status = 200; // koa defaults to 404 when it sees that status is unset
 
