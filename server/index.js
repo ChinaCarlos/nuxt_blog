@@ -9,13 +9,16 @@ const Alphabet = require('alphabetjs');
 // 集成日志
 // const logUtil = require('../utils/log_util');
 // 自定义api接口
+// const jwt = require('jsonwebtoken');
+const jwtKoa = require('koa-jwt');
+
 const tag = require('./api/tag');
 const user = require('./api/user');
 const category = require('./api/category');
 const article = require('./api/article');
 const comment = require('./api/comment');
-const public = require('./api/public')
-
+const public = require('./api/public');
+const secret = 'nuxt_blog';
 const app = new Koa();
 const host = process.env.HOST || '0.0.0.0';
 const port = process.env.PORT || 3000;
@@ -79,7 +82,6 @@ async function start() {
       enableTypes: ['json', 'form', 'text']
     })
   );
-  // token 验证token
   // token 验证失败拦截
   app.use(function(ctx, next) {
     return next().catch(error => {
@@ -87,11 +89,18 @@ async function start() {
         ctx.status = 401;
         ctx.body = {
           code: -1,
-          msg: 'Protected resource, use Authorization header to get access\n'
+          msg:
+            'this request need token , but your token is invalid or not exist!'
         };
       }
     });
   });
+  // token 验证token
+  app.use(
+    jwtKoa({ secret }).unless({
+      path: [/^((?!api\/v8\/).)*$/]
+    })
+  );
   // 使用自定义API 接口路由
   app.use(user.routes(), user.allowedMethods());
   app.use(tag.routes(), tag.allowedMethods());

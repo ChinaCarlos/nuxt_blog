@@ -225,6 +225,7 @@ export default {
         // 保存token到storage 中
         localStorage.setItem('nuxt_token', res.data.token)
         // 跳转路由
+        this.$router.push('/admin/');
       } else {
         this.$message({
           type: 'error',

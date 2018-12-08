@@ -4,9 +4,9 @@
 const ONLINE_HOST = 'http://116.85.35.63:3000';
 const LOCAL_HOST = 'http://localhost:3000';
 const HOST = LOCAL_HOST;
-export const USER_SIGN_UP = HOST + '/api/v8/users/signUp'; // 注册
-export const USER_SEND_VERIFY_CODE = HOST + '/api/v8/users/sendCode'; // 发送邮箱验证码
-export const USER_SIGN_IN = HOST + '/api/v8/users/signIn'; // 用户登录
+export const USER_SIGN_UP = HOST + '/public/users/signUp'; // 注册
+export const USER_SEND_VERIFY_CODE = HOST + '/public/users/sendCode'; // 发送邮箱验证码
+export const USER_SIGN_IN = HOST + '/public/users/signIn'; // 用户登录
 
 // 文章类型接口
 export const CATEGORY_LIST = HOST + `/api/v8/category/list`;
@@ -33,3 +33,5 @@ export const COMMENT_UPDATE = HOST + `/api/v8/comment/update`;
 export const COMMENT_DELETE = HOST + `/api/v8/comment/delete`;
 
 // 公共接口
+export const GET_INDEX_CATEGORY_LIST = HOST + `/api/public/index/category`;
+export const GET_INDEX_ARTICLE_LIST = HOST + `/api/public/index/articles`;

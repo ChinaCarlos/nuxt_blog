@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     saveArticle(markdown, htmlStr) {
-      console.log(markdown, strhtmlStr1);
+      console.log(markdown, strhtmlStr);
     }
   }
 };
