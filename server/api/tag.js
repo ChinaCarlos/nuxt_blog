@@ -93,6 +93,7 @@ router.put('/update', async (ctx, next) => {
 // 查看tag
 router.get('/list', async (ctx, next) => {
   let { userId, page = 1, size = 10, keywords = '', sort = -1 } = ctx.query;
+  console.log(ctx.header.authorization);
   page = Number(page) || 1;
   size = Number(size) || 10;
   page = Number(page - 1) * size || 0;

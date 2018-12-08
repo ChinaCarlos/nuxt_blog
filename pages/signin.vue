@@ -9,17 +9,24 @@
       <div class="box">
         <div class="loginTitle">
           <span class="line"></span>
-          <span class="txt"><i class="fa fa-slideshare" aria-hidden="true"></i>&nbsp;用户登录</span>
+          <span class="txt">
+            <i class="fa fa-slideshare" aria-hidden="true"></i>&nbsp;用户登录
+          </span>
           <span class="line"></span>
         </div>
         <div class="loginForm" @keydown.enter="signIn">
           <el-input v-model="email" type="text" placeholder="请输入您的邮箱">
             <i slot="prefix" class="el-input__icon fa fa-envelope-o"></i>
           </el-input>
-          <el-input v-model="password" :type="isShow ? 'text':'password'" ref="password" placeholder="请输入您的密码">
+          <el-input
+            v-model="password"
+            :type="isShow ? 'text':'password'"
+            ref="password"
+            placeholder="请输入您的密码"
+          >
             <i slot="prefix" class="el-input__icon fa fa-lock"></i>
-            <i slot="suffix" class="el-input__icon fa fa-eye"  v-if="!isShow" @click="toggleShow"></i>
-            <i slot="suffix" class="el-input__icon fa fa-eye-slash"  v-else @click="toggleShow"></i>
+            <i slot="suffix" class="el-input__icon fa fa-eye" v-if="!isShow" @click="toggleShow"></i>
+            <i slot="suffix" class="el-input__icon fa fa-eye-slash" v-else @click="toggleShow"></i>
           </el-input>
           <el-input v-model="code" type="text" placeholder="请输入您的验证码">
             <!-- 应该是后台传过来，此处做法不对！ 学习使用，切勿模仿！-->
@@ -30,7 +37,7 @@
         </div>
       </div>
       <div class="logoContainer">
-        <div id="mysvg" ref="mysvg" />
+        <div id="mysvg" ref="mysvg"/>
       </div>
       <div class="space">
         <div class="stars">
@@ -45,20 +52,21 @@
       </div>
     </div>
     <div class="power">
-      <p class="text">Copyright ©2017-2018 [ Nuxt_Blog ] Powered By <a href="https://github.com/maliaoMJ/nuxt_blog">maliaoMJ</a> Version 1.0.0</p>
+      <p class="text">
+        Copyright ©2017-2018 [ Nuxt_Blog ] Powered By
+        <a
+          href="https://github.com/maliaoMJ/nuxt_blog"
+        >maliaoMJ</a> Version 1.0.0
+      </p>
     </div>
-  </div>
   </div>
 </template>
 <script>
-import {
-  USER_SIGN_IN
-} from '../constant/api'
-import {
-  isEmail
-} from '../utils/validate_util'
+import { USER_SIGN_IN } from "../constant/api";
+import { isEmail } from "../utils/validate_util";
+const STORE_PATH = `modules/Auth/`;
 export default {
-  name: 'signIn',
+  name: "signIn",
   data() {
     return {
       imgs: [
@@ -99,9 +107,10 @@ export default {
         //   alt: 'earth'
         // },
         {
-          src: 'http://img.zcool.cn/community/0175d057bd38970000012e7e8ad0d9.png',
-          alt: 'star'
-        },
+          src:
+            "http://img.zcool.cn/community/0175d057bd38970000012e7e8ad0d9.png",
+          alt: "star"
+        }
         // {
         //   src: 'http://img.zcool.cn/community/0175d057bd38970000012e7e8ad0d9.png',
         //   alt: 'eartch'
@@ -111,12 +120,12 @@ export default {
         //   alt: 'mountin'
         // }
       ],
-      email: '',
-      password: '',
-      code: '',
-      VerifyCode: '',
+      email: "",
+      password: "",
+      code: "",
+      VerifyCode: "",
       isShow: false
-    }
+    };
   },
   methods: {
     randomNum(min, max) {
@@ -132,32 +141,32 @@ export default {
       let canvas = document.getElementById("canvas");
       let width = canvas.width;
       let height = canvas.height;
-      let ctx = canvas.getContext('2d');
-      ctx.textBaseline = 'bottom';
+      let ctx = canvas.getContext("2d");
+      ctx.textBaseline = "bottom";
 
       /**绘制背景色**/
       ctx.fillStyle = this.randomColor(180, 240); //颜色若太深可能导致看不清
       ctx.fillRect(0, 0, width, height);
       /**绘制文字**/
-      let str = 'ABCEFGHJKLMNPQRSTWXY123456789';
-      let verfiyStr = ''
+      let str = "ABCEFGHJKLMNPQRSTWXY123456789";
+      let verfiyStr = "";
       for (let i = 0; i < 4; i++) {
         let txt = str[this.randomNum(0, str.length)];
-        verfiyStr += txt
+        verfiyStr += txt;
         ctx.fillStyle = this.randomColor(50, 160); //随机生成字体颜色
-        ctx.font = this.randomNum(18, 30) + 'px SimHei'; //随机生成字体大小
+        ctx.font = this.randomNum(18, 30) + "px SimHei"; //随机生成字体大小
         let x = 10 + i * 25;
         let y = this.randomNum(25, 45);
         let deg = this.randomNum(-45, 45);
         //修改坐标原点和旋转角度
         ctx.translate(x, y);
-        ctx.rotate(deg * Math.PI / 180);
+        ctx.rotate((deg * Math.PI) / 180);
         ctx.fillText(txt, 0, 0);
         //恢复坐标原点和旋转角度
-        ctx.rotate(-deg * Math.PI / 180);
+        ctx.rotate((-deg * Math.PI) / 180);
         ctx.translate(-x, -y);
       }
-      this.VerifyCode = verfiyStr
+      this.VerifyCode = verfiyStr;
       /**绘制干扰线**/
       for (let i = 0; i < 3; i++) {
         ctx.strokeStyle = this.randomColor(40, 180);
@@ -170,67 +179,79 @@ export default {
       for (let i = 0; i < 50; i++) {
         ctx.fillStyle = this.randomColor(0, 255);
         ctx.beginPath();
-        ctx.arc(this.randomNum(0, width), this.randomNum(0, height), 1, 0, 2 * Math.PI);
+        ctx.arc(
+          this.randomNum(0, width),
+          this.randomNum(0, height),
+          1,
+          0,
+          2 * Math.PI
+        );
         ctx.fill();
       }
     },
     playSvg() {
-      let Vivus = this.$Vivus
-      const vivus = new Vivus('mysvg', {
-        file: 'images/tiger.svg',
+      let Vivus = this.$Vivus;
+      const vivus = new Vivus("mysvg", {
+        file: "images/tiger.svg",
         duration: 1000,
-        type: 'oneByOne',
+        type: "oneByOne",
         animTimingFunction: Vivus.EASE
-      })
-      vivus.play()
+      });
+      vivus.play();
       setTimeout(() => {
-        vivus.play(2)
-      }, 20)
+        vivus.play(2);
+      }, 20);
     },
     toggleShow() {
-      this.isShow = !this.isShow
+      this.isShow = !this.isShow;
     },
     async signIn() {
       if (!this.code || !this.email || !this.password) {
         this.$message({
-          type: 'error',
-          message: '必填项不能为空！'
-        })
-        return false
+          type: "error",
+          message: "必填项不能为空！"
+        });
+        return false;
       }
       if (!isEmail(this.email)) {
         this.$message({
-          type: 'error',
-          message: '邮箱地址不合法！'
-        })
+          type: "error",
+          message: "邮箱地址不合法！"
+        });
         return false;
       }
       if (this.code.toLowerCase() != this.VerifyCode.toLowerCase()) {
         this.$message({
-          type: 'error',
-          message: '验证码不一致！'
-        })
-        return false
+          type: "error",
+          message: "验证码不一致！"
+        });
+        return false;
       }
 
       const res = await this.$axios.post(USER_SIGN_IN, {
         email: this.email,
         password: this.password
-      })
+      });
       if (res.data.code === 0) {
         this.$message({
-          type: 'success',
-          message: '登录成功！'
-        })
-        // 保存token到storage 中
-        localStorage.setItem('nuxt_token', res.data.token)
+          type: "success",
+          message: "登录成功！"
+        });
+        // 保存登录信息到storage 中
+        let userInfoStr = JSON.stringify(res.data.user);
+        localStorage.setItem("nuxt_token", res.data.token);
+        localStorage.setItem("nuxt_user", userInfoStr);
         // 跳转路由
-        this.$router.push('/admin/');
+        this.$store.dispatch(STORE_PATH + `changeUserInfo`, res.data.user);
+        this.$store.dispatch(STORE_PATH + `changeToken`, {
+          token: res.data.token
+        });
+        this.$router.push("/admin/");
       } else {
         this.$message({
-          type: 'error',
-          message: res.msg || '登录失败,密码或邮箱不正确！'
-        })
+          type: "error",
+          message: res.msg || "登录失败,密码或邮箱不正确！"
+        });
       }
     }
   },
@@ -238,8 +259,7 @@ export default {
     this.drawVerifyCode();
     this.playSvg();
   }
-}
-
+};
 </script>
 <style lang="scss">
 .container {
@@ -424,7 +444,7 @@ export default {
 }
 
 .star:after {
-  content: '';
+  content: "";
   display: block;
   top: 0px;
   left: 4px;
@@ -556,5 +576,4 @@ export default {
     -moz-transform: scale(1) rotate(0) translate3d(-500px, 500px, 0);
   }
 }
-
 </style>

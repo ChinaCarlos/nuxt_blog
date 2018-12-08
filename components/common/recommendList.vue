@@ -6,7 +6,7 @@
         <span>文章推荐</span>
       </h3>
       <ul class="recommend-article-list">
-        <li class="article-item" v-for="(item,index) in 18" :key="index">
+        <li class="article-item" v-for="(item,index) in 10" :key="index">
           <nuxt-link class="link" to="/article/23">{{index+1}}.&nbsp;浅谈Easy-mock 最好的备胎没有之一</nuxt-link>
         </li>
       </ul>
@@ -25,7 +25,7 @@ export default {
   background: #fff;
   margin-top: 10px;
   border-radius: 6px;
-  height: 500px;
+  height: 310px;
   padding: 20px;
   .recommend-article-list {
     list-style: none;

@@ -39,7 +39,14 @@ router.post('/signIn', async (ctx, next) => {
         ctx.body = {
           code: 0,
           msg: '登录成功！',
-          token: getToken(email)
+          token: getToken(email),
+          user: {
+            id: result._id,
+            role: result.role,
+            name: result.name,
+            email: result.email,
+            avatar: result.avatar || ''
+          }
         };
       } else {
         ctx.body = {

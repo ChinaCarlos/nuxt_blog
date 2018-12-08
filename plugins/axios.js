@@ -2,7 +2,7 @@ export default function({ $axios, redirect }) {
   //   $axios.onRequest(config => {
   //     console.log('Making request to ' + config.url);
   //   });
-  const token = sessionStorage.getItem('nuxt_token');
+  const token = localStorage.getItem('nuxt_token');
   if (token) {
     $axios.setToken(token, 'Bearer');
   }
