@@ -70,55 +70,11 @@ export default {
   data() {
     return {
       imgs: [
-        // {
-        //   src: 'http://pic1.win4000.com/wallpaper/8/52d380be33951.jpg',
-        //   alt: "冲浪"
-        // },
-        // {
-        //   src: 'http://pic.3h3.com/up/2018-9/201896153356542640_804.jpg',
-        //   alt: "蜘蛛侠"
-        // },
-        // {
-        //     src: 'http://pic1.win4000.com/wallpaper/0/59a7b09d1adbb.jpg',
-        //     alt: '雪花'
-        // },
-        // {
-        //     src: 'http://pic1.win4000.com/wallpaper/6/5984113b3678b.jpg',
-        //     alt: 'earth'
-        // },
-        // {
-        //   src: 'http://p17.qhimg.com/bdr/__/d/_open360/fj0906/5.jpg',
-        //   alt: "风景"
-        // },
-        // {
-        //   src: 'http://p19.qhimg.com/bdr/__/d/_open360/pet0411/52.jpg',
-        //   alt: "猫"
-        // },
-        // {
-        //   src: 'http://www.3dmgame.com/uploads/allimg/140620/153_140620153629_2.jpg',
-        //   alt: '科技感'
-        // },
-        // {
-        //   src: 'http://pic1.win4000.com/wallpaper/d/58747f2edb1ec.jpg?down',
-        //   alt: 'earth'
-        // }
-        // {
-        //   src: 'http://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/54fbb2fb43166d22adca728b422309f79052d274.jpg',
-        //   alt: 'earth'
-        // },
         {
           src:
             "http://img.zcool.cn/community/0175d057bd38970000012e7e8ad0d9.png",
           alt: "star"
         }
-        // {
-        //   src: 'http://img.zcool.cn/community/0175d057bd38970000012e7e8ad0d9.png',
-        //   alt: 'eartch'
-        // },
-        // {
-        //   src: 'http://pic1.win4000.com/wallpaper/5/5995433de55da.jpg?down',
-        //   alt: 'mountin'
-        // }
       ],
       email: "",
       password: "",

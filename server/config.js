@@ -6,7 +6,7 @@ module.exports = {
     port: 465, // SMTP 端口
     auth: {
       user: '1302151931@qq.com', // 账号
-      pass: 'otavaxketzoqiaeh' // 密码
+      pass: '' // 密码
     }
   },
   redis: {
